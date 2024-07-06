@@ -18,6 +18,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     'prettier/prettier': 'error',
     "react-compiler/react-compiler": "error",
+    'import/export/prefer-default-export': 'off',
   },
   settings: {
     react: {
