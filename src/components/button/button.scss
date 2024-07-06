@@ -1,0 +1,15 @@
+.button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    
+    &.disabled {
+      cursor: not-allowed;
+    }
+  
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }

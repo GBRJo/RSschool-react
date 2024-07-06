@@ -1,12 +1,21 @@
 import { SearchInput } from '@components/Input/SearchInput/SearchInput';
 import { ChangeEvent, Component, FormEvent } from 'react';
-import './App.css';
+// import './index.scss';
+import { Button } from '@components/button/Button';
 
 interface Person {
   name: string;
   description: string;
   hair_color: string;
   eye_color: string;
+
+  birth_year: string;
+
+  gender: string;
+
+  height: string;
+  mass: string;
+  skin_color: string;
 }
 
 interface AppState {
@@ -68,7 +77,15 @@ export class App extends Component<object, AppState> {
       const data = await response.json();
       const results = data.results.map((person: Person) => ({
         name: person.name,
-        description: `Hair Color: ${person.hair_color}, Eye Color: ${person.eye_color}`,
+        description: (
+          <>
+            Birth Year: {person.birth_year}, Eye Color: {person.eye_color},
+            Gender: {person.gender},
+            <br />
+            Hair Color: {person.hair_color}, Height: {person.height}, Mass:{' '}
+            {person.mass}, Skin Color: {person.skin_color}
+          </>
+        ),
       }));
       this.setState({ results });
     } catch (error) {
@@ -78,19 +95,21 @@ export class App extends Component<object, AppState> {
 
   render() {
     return (
-      <div className="App">
-        <h1>My React App</h1>
+      <div className="app">
+        <h1>star wars</h1>
+        <span>
+          Here you can search some facts about persons from Star Wars by name.
+        </span>
         <form onSubmit={this.handleSubmit}>
           <SearchInput
-            label="Search"
             placeholder="Type to search..."
             value={this.state.search}
             onChange={this.handleSearchChange}
             name="search"
           />
-          <button type="submit">Search</button>
+          <Button type="submit" ariaLabel="Search" />
         </form>
-        <div>
+        <div className="results">
           {this.state.results.map((result, index) => (
             <div key={index}>
               <h2>{result.name}</h2>
