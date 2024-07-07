@@ -85,11 +85,11 @@ export class App extends Component<object, AppState> {
           </>
         ),
       }));
-      this.setState({ results, error: false }); // Устанавливаем error в false при успешной загрузке
+      this.setState({ results, error: false });
     } catch (error) {
       console.error('Error fetching search results:', error);
-      this.setState({ results: [], error: true }); // Устанавливаем error в true при ошибке
-      throw error; // Пробрасываем ошибку дальше для отображения в ErrorBoundary
+      this.setState({ results: [], error: true });
+      throw error;
     }
   }
 

@@ -30,7 +30,6 @@ export class ErrorBoundary extends Component<
 
   render(): ReactNode {
     if (this.state.hasError) {
-      console.log('Error caug');
       return this.props.fallbackUI;
     }
     return this.props.children;
