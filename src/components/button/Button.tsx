@@ -1,10 +1,12 @@
 import { Component } from 'react';
-import searchIcon from '../../assets/search.svg';
 
 interface ButtonProps {
   onClick?: () => void;
   ariaLabel: string;
+  imgSrc: string;
+  imgAlt: string;
   disabled?: boolean;
+  className?: string;
   type?: 'button' | 'submit' | 'reset';
 }
 
@@ -15,7 +17,8 @@ export class Button extends Component<ButtonProps> {
   };
 
   render() {
-    const { onClick, ariaLabel, disabled, type } = this.props;
+    const { onClick, ariaLabel, imgSrc, imgAlt, className, disabled, type } =
+      this.props;
 
     return (
       <button
@@ -23,9 +26,9 @@ export class Button extends Component<ButtonProps> {
         onClick={onClick}
         aria-label={ariaLabel}
         disabled={disabled}
-        className={`button ${disabled ? 'disabled' : ''}`}
+        className={`button ${className} ${disabled ? 'disabled' : ''}`}
       >
-        <img src={searchIcon} alt={ariaLabel} />
+        <img src={imgSrc} alt={imgAlt} />
       </button>
     );
   }
