@@ -20,6 +20,7 @@ interface AppState {
   search: string;
   results: Person[];
   error: boolean;
+  isLoading: boolean;
 }
 
 export class App extends Component<object, AppState> {
@@ -29,6 +30,7 @@ export class App extends Component<object, AppState> {
       search: '',
       results: [],
       error: false,
+      isLoading: false,
     };
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -67,6 +69,8 @@ export class App extends Component<object, AppState> {
       apiUrl += `?search=${encodeURIComponent(search)}`;
     }
 
+    this.setState({ isLoading: true });
+
     try {
       const response = await fetch(apiUrl);
       if (!response.ok) {
@@ -90,6 +94,8 @@ export class App extends Component<object, AppState> {
       console.error('Error fetching search results:', error);
       this.setState({ results: [], error: true });
       throw error;
+    } finally {
+      this.setState({ isLoading: false });
     }
   }
 
@@ -102,14 +108,15 @@ export class App extends Component<object, AppState> {
     if (this.state.error) {
       return (
         <div className="app">
-          <h1>star wars</h1>
+          <h1>Star Wars</h1>
           <p>Something went wrong...</p>
         </div>
       );
     }
+
     return (
       <div className="app">
-        <h1>star wars</h1>
+        <h1>Star Wars</h1>
         <span>
           Here you can search some facts about persons from Star Wars by name.
         </span>
@@ -136,14 +143,18 @@ export class App extends Component<object, AppState> {
           className="error"
           onClick={this.handleThrowError}
         />
-        <div className="results">
-          {this.state.results.map((result, index) => (
-            <div key={index}>
-              <h2>{result.name}</h2>
-              <p>{result.description}</p>
-            </div>
-          ))}
-        </div>
+        {this.state.isLoading ? (
+          <div className="spinner">Loading...</div>
+        ) : (
+          <div className="results">
+            {this.state.results.map((result, index) => (
+              <div key={index}>
+                <h2>{result.name}</h2>
+                <p>{result.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
