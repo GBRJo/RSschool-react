@@ -1,5 +1,5 @@
 import { SearchInput } from '@components/Input/SearchInput/SearchInput';
-import { ChangeEvent, Component, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Button } from '@components/button/Button';
 import searchIcon from './assets/search.svg';
 import errorIcon from './assets/error.svg';
@@ -16,60 +16,40 @@ interface Person {
   skin_color: string;
 }
 
-interface AppState {
-  search: string;
-  results: Person[];
-  error: boolean;
-  isLoading: boolean;
-}
+export const App: React.FC = () => {
+  const [search, setSearch] = useState<string>('');
+  const [results, setResults] = useState<Person[]>([]);
+  const [error, setError] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
-export class App extends Component<object, AppState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      search: '',
-      results: [],
-      error: false,
-      isLoading: false,
-    };
-
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.fetchSearchResults = this.fetchSearchResults.bind(this);
-    this.handleThrowError = this.handleThrowError.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const lastSearch = localStorage.getItem('lastSearch');
     if (lastSearch) {
-      this.setState({ search: lastSearch }, () => {
-        this.fetchSearchResults();
-      });
-    } else {
-      this.fetchSearchResults();
+      setSearch(lastSearch);
     }
-  }
+    fetchSearchResults();
+  }, []); // Пустой массив зависимостей для эмуляции componentDidMount
 
-  handleSearchChange(event: ChangeEvent<HTMLInputElement>): void {
-    const newSearch = event.target.value.trim();
-    this.setState({ search: newSearch });
-  }
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(event.target.value.trim());
+  };
 
-  async handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     event.preventDefault();
-    localStorage.setItem('lastSearch', this.state.search);
-    this.fetchSearchResults();
-  }
+    localStorage.setItem('lastSearch', search);
+    fetchSearchResults();
+  };
 
-  async fetchSearchResults(): Promise<void> {
-    const { search } = this.state;
+  const fetchSearchResults = async (): Promise<void> => {
     let apiUrl = 'https://swapi.dev/api/people/';
 
     if (search) {
       apiUrl += `?search=${encodeURIComponent(search)}`;
     }
 
-    this.setState({ isLoading: true });
+    setLoading(true);
 
     try {
       const response = await fetch(apiUrl);
@@ -77,7 +57,7 @@ export class App extends Component<object, AppState> {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      const results = data.results.map((person: Person) => ({
+      const updatedResults = data.results.map((person: Person) => ({
         name: person.name,
         description: (
           <>
@@ -89,73 +69,69 @@ export class App extends Component<object, AppState> {
           </>
         ),
       }));
-      this.setState({ results, error: false });
+      setResults(updatedResults);
+      setError(false);
     } catch (error) {
       console.error('Error fetching search results:', error);
-      this.setState({ results: [], error: true });
-      throw error;
+      setResults([]);
+      setError(true);
     } finally {
-      this.setState({ isLoading: false });
+      setLoading(false);
     }
-  }
+  };
 
-  handleThrowError(): void {
+  const handleThrowError = (): void => {
     console.error('Error caught in App: Test error');
-    this.setState({ error: true });
-  }
+    setError(true);
+  };
 
-  render() {
-    if (this.state.error) {
-      return (
-        <div className="app">
-          <h1>Star Wars</h1>
-          <p>Something went wrong...</p>
-        </div>
-      );
-    }
-
-    return (
-      <div className="app">
-        <h1>Star Wars</h1>
-        <span>
-          Here you can search some facts about persons from Star Wars by name.
-        </span>
-        <form onSubmit={this.handleSubmit}>
-          <SearchInput
-            placeholder="Type to search..."
-            value={this.state.search}
-            onChange={this.handleSearchChange}
-            name="search"
-          />
+  return (
+    <div className="app">
+      <h1>Star Wars</h1>
+      {error ? (
+        <p>Something went wrong...</p>
+      ) : (
+        <>
+          <span>
+            Here you can search some facts about persons from Star Wars by name.
+          </span>
+          <form onSubmit={handleSubmit}>
+            <SearchInput
+              placeholder="Type to search..."
+              value={search}
+              onChange={handleSearchChange}
+              name="search"
+            />
+            <Button
+              ariaLabel="Search"
+              imgSrc={searchIcon}
+              imgAlt="Search Icon"
+              type="submit"
+              className="search"
+            />
+          </form>
           <Button
-            ariaLabel="Search"
-            imgSrc={searchIcon}
-            imgAlt="Search Icon"
-            type="submit"
-            className="search"
+            ariaLabel="Error"
+            imgSrc={errorIcon}
+            imgAlt="Error Icon"
+            type="button"
+            className="error"
+            onClick={handleThrowError}
           />
-        </form>
-        <Button
-          ariaLabel="Error"
-          imgSrc={errorIcon}
-          imgAlt="Error Icon"
-          type="button"
-          className="error"
-          onClick={this.handleThrowError}
-        />
-        {this.state.isLoading ? (
-          <div className="spinner">Loading...</div>
-        ) : (
-          <div className="results">
-            {this.state.results.map((result, index) => (
-              <div key={index}>
-                <h2>{result.name}</h2>
-                <p>{result.description}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+          {isLoading ? (
+            <div className="spinner">Loading...</div>
+          ) : (
+            <div className="results">
+              {results.map((result, index) => (
+                <div key={index}>
+                  <h2>{result.name}</h2>
+                  <p>{result.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};

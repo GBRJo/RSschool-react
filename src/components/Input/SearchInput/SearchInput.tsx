@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 interface SearchInputProps {
   id?: string;
@@ -12,26 +12,29 @@ interface SearchInputProps {
   editMode?: boolean;
   onEdit?: () => void;
   error?: string;
-  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export class SearchInput extends React.Component<SearchInputProps> {
-  render() {
-    const { label, placeholder, value, onChange, name, onKeyDown } = this.props;
-
-    return (
-      <div className="input">
-        <label htmlFor={name}>{label}</label>
-        <input
-          type="search"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          name={name}
-          id={name}
-          onKeyDown={onKeyDown}
-        />
-      </div>
-    );
-  }
-}
+export const SearchInput: React.FC<SearchInputProps> = ({
+  label,
+  placeholder,
+  value,
+  onChange,
+  name,
+  onKeyDown,
+}) => {
+  return (
+    <div className="input">
+      <label htmlFor={name}>{label}</label>
+      <input
+        type="search"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        name={name}
+        id={name}
+        onKeyDown={onKeyDown}
+      />
+    </div>
+  );
+};
