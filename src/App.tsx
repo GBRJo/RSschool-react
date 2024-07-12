@@ -1,84 +1,37 @@
 import { SearchInput } from '@components/Input/SearchInput/SearchInput';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@components/button/Button';
 import searchIcon from './assets/search.svg';
 import errorIcon from './assets/error.svg';
-
-interface Person {
-  name: string;
-  description: string;
-  hair_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  height: string;
-  mass: string;
-  skin_color: string;
-}
+import { CardList } from '@components/cardList/CardList';
+import { useSearchFromLocalStorage } from './hooks/hooks';
+import { fetchSearchResults } from './services/fetchSearchResults/fetchSearchResults';
+import { Person } from '@components/card/ICardProps';
 
 export const App: React.FC = () => {
-  const [search, setSearch] = useState<string>('');
-  const [results, setResults] = useState<Person[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [results, setResults] = useState<Person[]>([]);
+  const [search, setSearch, saveToLocalStorage] = useSearchFromLocalStorage();
 
-  useEffect(() => {
-    const lastSearch = localStorage.getItem('lastSearch');
-    if (lastSearch) {
-      setSearch(lastSearch);
-    }
-    fetchSearchResults();
-  }, []); // Пустой массив зависимостей для эмуляции componentDidMount
-
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearch(event.target.value.trim());
+  const handleSearchChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const newSearch = event.target.value.trim();
+    setSearch(newSearch);
   };
 
   const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>,
+    event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     event.preventDefault();
-    localStorage.setItem('lastSearch', search);
-    fetchSearchResults();
+    saveToLocalStorage(search); // Запись в локальное хранилище при отправке формы
+    await fetchSearchResults(search, setResults, setError, setLoading);
   };
 
-  const fetchSearchResults = async (): Promise<void> => {
-    let apiUrl = 'https://swapi.dev/api/people/';
-
-    if (search) {
-      apiUrl += `?search=${encodeURIComponent(search)}`;
-    }
-
-    setLoading(true);
-
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      const updatedResults = data.results.map((person: Person) => ({
-        name: person.name,
-        description: (
-          <>
-            Birth Year: {person.birth_year}, Eye Color: {person.eye_color},
-            Gender: {person.gender},
-            <br />
-            Hair Color: {person.hair_color}, Height: {person.height}cm, Mass:{' '}
-            {person.mass}kg, Skin Color: {person.skin_color}
-          </>
-        ),
-      }));
-      setResults(updatedResults);
-      setError(false);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-      setResults([]);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    fetchSearchResults(search, setResults, setError, setLoading);
+  }, [search]); // Запускаем fetchSearchResults один раз при монтировании
 
   const handleThrowError = (): void => {
     console.error('Error caught in App: Test error');
@@ -118,17 +71,11 @@ export const App: React.FC = () => {
             className="error"
             onClick={handleThrowError}
           />
+
           {isLoading ? (
             <div className="spinner">Loading...</div>
           ) : (
-            <div className="results">
-              {results.map((result, index) => (
-                <div key={index}>
-                  <h2>{result.name}</h2>
-                  <p>{result.description}</p>
-                </div>
-              ))}
-            </div>
+            <CardList results={results} />
           )}
         </>
       )}

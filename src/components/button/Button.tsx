@@ -1,4 +1,4 @@
-interface ButtonProps {
+interface IButtonProps {
   onClick?: () => void;
   ariaLabel: string;
   imgSrc: string;
@@ -8,7 +8,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<IButtonProps> = ({
   onClick,
   ariaLabel,
   imgSrc,
