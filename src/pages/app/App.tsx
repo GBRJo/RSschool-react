@@ -1,18 +1,20 @@
 import { SearchInput } from '@components/Input/SearchInput/SearchInput';
 import { useEffect, useState } from 'react';
 import { Button } from '@components/button/Button';
-import searchIcon from './assets/search.svg';
-import errorIcon from './assets/error.svg';
+import searchIcon from '@assets/search.svg';
+import errorIcon from '@assets/error.svg';
 import { CardList } from '@components/cardList/CardList';
-import { useSearchFromLocalStorage } from './hooks/hooks';
-import { fetchSearchResults } from './services/fetchSearchResults/fetchSearchResults';
+import { useSearchFromLocalStorage } from '../../hooks/hooks';
+import { fetchSearchResults } from '../../services/fetch/fetchSearchResults';
 import { Person } from '@components/card/ICardProps';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 export const App: React.FC = () => {
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [results, setResults] = useState<Person[]>([]);
   const [search, setSearch, saveToLocalStorage] = useSearchFromLocalStorage();
+  const navigate = useNavigate();
 
   const handleSearchChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -29,9 +31,13 @@ export const App: React.FC = () => {
     await fetchSearchResults(search, setResults, setError, setLoading);
   };
 
+  const handleResultClick = (id: string): void => {
+    navigate(`details/${id}`);
+  };
+
   useEffect(() => {
     fetchSearchResults(search, setResults, setError, setLoading);
-  }, [search]); // Запускаем fetchSearchResults один раз при монтировании
+  }, [search]);
 
   const handleThrowError = (): void => {
     console.error('Error caught in App: Test error');
@@ -72,11 +78,18 @@ export const App: React.FC = () => {
             onClick={handleThrowError}
           />
 
-          {isLoading ? (
-            <div className="spinner">Loading...</div>
-          ) : (
-            <CardList results={results} />
-          )}
+          <div className="results-container">
+            <div className="results-list">
+              {isLoading ? (
+                <div className="spinner">Loading...</div>
+              ) : (
+                <CardList results={results} onResultClick={handleResultClick} />
+              )}
+            </div>
+            <div className="details-view">
+              <Outlet />
+            </div>
+          </div>
         </>
       )}
     </div>
