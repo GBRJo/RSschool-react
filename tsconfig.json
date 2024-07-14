@@ -6,7 +6,8 @@
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@pages/*": ["pages/*"]  
     }
   },
   "files": [],
