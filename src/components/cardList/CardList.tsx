@@ -1,5 +1,6 @@
 import { Card } from '@components/card/baseCard/Card';
 import { Person } from '@components/card/ICardProps';
+import { useState } from 'react';
 
 interface ICardListProps {
   results: Person[];
@@ -14,14 +15,24 @@ const getIdFromUrl = (url: string): string => {
 export const CardList: React.FC<ICardListProps> = ({
   results,
   onResultClick,
-}) => (
-  <div className="card-list">
-    {results.map((result) => (
-      <Card
-        key={getIdFromUrl(result.url)}
-        person={result} // Передаем result как объект person
-        onClick={() => onResultClick(getIdFromUrl(result.url))}
-      />
-    ))}
-  </div>
-);
+}) => {
+  const [activePersonId, setActivePersonId] = useState<string | null>(null);
+
+  const handleCardClick = (id: string) => {
+    setActivePersonId(id);
+    onResultClick(id);
+  };
+
+  return (
+    <div className="card-list">
+      {results.map((result) => (
+        <Card
+          key={getIdFromUrl(result.url)}
+          person={result}
+          onClick={() => handleCardClick(getIdFromUrl(result.url))}
+          isActive={getIdFromUrl(result.url) === activePersonId}
+        />
+      ))}
+    </div>
+  );
+};

@@ -9,9 +9,10 @@
 @mixin h3-style {
     font-family: 'Roboto Regular', sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 150%;
     letter-spacing: 0.01em;
+    text-transform: uppercase; 
   }
   
   @mixin h4-style {

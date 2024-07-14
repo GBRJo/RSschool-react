@@ -12,6 +12,7 @@
 // Import of global components
 @import '@components/input/inputs.scss';
 @import '@components/button/button.scss';
+@import '@components/pagination/pagination.scss';
 
 body {
   display: flex;
@@ -79,58 +80,22 @@ span {
   line-height: 130%;
   letter-spacing: 0.02em;
   color: $grey-text;
-  margin-top: -4px;
-  margin-bottom: 8px;
-  justify-content: center;
-  width: 100%;
+
 }
-
-form {
-  width: 100%;
-  display: flex;
-  gap: 12px;
-  margin-right: 16px;
-
-  & > :first-child {
-    flex: 1;
-    margin-top: -8px;
-  }
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 
   .button.error {
     position: fixed;
     top: 0;
     right: 0;
     z-index: 1000;
-    padding: 2rem;
+    padding: 2rem 4rem;
   }
-
-
-.results {
-  display: flex;
-  flex-direction: column;
-  margin-top: 16px;
-  gap: 16px;
-  h2 {
-    margin-bottom: 4px;
-  }
-  p {
-    color: $grey-text;
-  }
-}
 
 #root {
-  max-width: 1280px;
+ 
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 2rem 4rem;
 }
 
 @media (max-width: 1024px) {

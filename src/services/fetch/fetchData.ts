@@ -22,17 +22,16 @@ export const fetchData = async ({
     }
     const data = await response.json();
 
-    // Проверяем, является ли data массивом или объектом Person
     if (Array.isArray(data)) {
-      setData(data); // Если data массив, устанавливаем массив Person[]
+      setData(data);
     } else {
-      setData(data as Person); // Если data объект, устанавливаем объект Person
+      setData(data as Person);
     }
 
     setError(false);
   } catch (error) {
     console.error('Error fetching data:', error);
-    setData([]); // Можно также установить null или другое значение, в зависимости от логики вашего приложения
+    setData([]);
     setError(true);
   } finally {
     setLoading(false);

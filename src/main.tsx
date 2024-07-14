@@ -28,11 +28,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 );
-
-// ReactDOM.createRoot(document.getElementById('root')!).render(
-//   <React.StrictMode>
-//     <ErrorBoundary fallbackUI={<div>Something went wrong.</div>}>
-//       <App />
-//     </ErrorBoundary>
-//   </React.StrictMode>,
-// );
