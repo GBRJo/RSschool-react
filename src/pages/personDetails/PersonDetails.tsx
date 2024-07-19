@@ -1,30 +1,18 @@
 import { Button } from '@components/button/Button';
 import { DetailedCard } from '@components/card/detailedCard/DetailedCard';
-import { Person } from '@components/card/ICardProps';
-import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import closeIcon from '@assets/close.svg';
-import { FetchDataProps, fetchData } from '@services/fetch/fetchData';
+import { useGetPersonByIdQuery } from '@services/fetch/api';
 
 export const PersonDetails: React.FC = () => {
   const { personId } = useParams<{ personId: string }>();
-  const [person, setPerson] = useState<Person | null>(null);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDataProps: FetchDataProps = {
-      url: `https://swapi.dev/api/people/${personId}/`,
-      setData: (data: Person | Person[]) => {
-        setPerson(Array.isArray(data) ? data[0] : data);
-      },
-      setError: setError,
-      setLoading: setLoading,
-    };
-
-    fetchData(fetchDataProps);
-  }, [personId]);
+  const {
+    data: person,
+    error,
+    isLoading,
+  } = useGetPersonByIdQuery(personId || '');
 
   const handleCloseDetails = (): void => {
     navigate('/');
