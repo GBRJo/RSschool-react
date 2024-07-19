@@ -1,32 +1,38 @@
 import { SearchInput } from '@components/Input/SearchInput/SearchInput';
 import { useEffect, useState } from 'react';
-import { Button } from '@components/button/Button';
 import searchIcon from '@assets/search.svg';
 import errorIcon from '@assets/error.svg';
 import { CardList } from '@components/cardList/CardList';
 import { useSearchFromLocalStorage } from '../../hooks/hooks';
-import { fetchSearchResults } from '../../services/fetch/fetchSearchResults';
-import { Person } from '@components/card/ICardProps';
+// import { fetchSearchResults } from '../../services/fetch/fetchSearchResults';
+// import { Person } from '@components/card/ICardProps';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Pagination } from '@components/pagination/Pagination';
 import './app.scss';
+import { Button } from '@components/button/Button';
+import { useGetPeopleQuery } from '@services/fetch/api';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 
 export const App: React.FC = () => {
-  const [error, setError] = useState<boolean>(false);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [results, setResults] = useState<Person[]>([]);
   const [search, setSearch, saveToLocalStorage] = useSearchFromLocalStorage();
-  const [totalCount, setTotalCount] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
+
   const navigate = useNavigate();
   const query = useQuery();
 
   const initialPage = parseInt(query.get('page') || '1', 10);
-  const [currentPage, setCurrentPage] = useState<number>(initialPage);
-  const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [initialPage]);
+
+  const { data, error, isLoading } = useGetPeopleQuery({
+    search,
+    page: currentPage,
+  });
 
   const handleSearchChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -35,20 +41,10 @@ export const App: React.FC = () => {
     setSearch(newSearch);
   };
 
-  const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setCurrentPage(1);
     saveToLocalStorage(search);
-    await fetchSearchResults(
-      search,
-      1,
-      setResults,
-      setError,
-      setLoading,
-      setTotalCount,
-    );
     navigate(`?page=1`);
   };
 
@@ -59,27 +55,8 @@ export const App: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    fetchSearchResults(
-      search,
-      page,
-      setResults,
-      setError,
-      setLoading,
-      setTotalCount,
-    );
     navigate(`?page=${page}`);
   };
-
-  useEffect(() => {
-    fetchSearchResults(
-      search,
-      currentPage,
-      setResults,
-      setError,
-      setLoading,
-      setTotalCount,
-    );
-  }, [currentPage, search]);
 
   const handleContainerClick = (): void => {
     if (selectedDetail) {
@@ -90,10 +67,9 @@ export const App: React.FC = () => {
 
   const handleThrowError = (): void => {
     console.error('Error caught in App: Test error');
-    setError(true);
   };
 
-  const totalPages = Math.ceil(totalCount / 10);
+  const totalPages = data ? Math.ceil(data.count / 10) : 0;
 
   return (
     <div className="app">
@@ -139,7 +115,10 @@ export const App: React.FC = () => {
             <div className="spinner">Loading...</div>
           ) : (
             <>
-              <CardList results={results} onResultClick={handleResultClick} />
+              <CardList
+                results={data?.results || []}
+                onResultClick={handleResultClick}
+              />
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
