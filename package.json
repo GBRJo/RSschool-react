@@ -11,7 +11,7 @@
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,md}'",
     "format:fix": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,md}'",
-    "prepare": "husky && echo npm run lint-staged > .husky/pre-commit > .husky/pre-push",
+    "prepare": "husky",
     "test": "vitest run --coverage",
     "lint-staged": "lint-staged"
   },
@@ -20,6 +20,11 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
