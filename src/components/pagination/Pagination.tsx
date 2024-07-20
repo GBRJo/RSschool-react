@@ -33,7 +33,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         imgSrc={arrowsLeftIcon}
         imgAlt="Left Icon"
         type="button"
-        className="arrow-left"
+        className="arrow-left icon-invert"
         onClick={handlePrevious}
       />
       <p>
@@ -45,7 +45,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         imgSrc={arrowRightIcon}
         imgAlt="Right Icon"
         type="button"
-        className="arrow-right"
+        className="arrow-right icon-invert"
         onClick={handleNext}
       />
     </div>

@@ -19,7 +19,6 @@ body {
   position: relative;
   min-height: 100vh;
   font-size: 16px;
-  background-color: $white-color;
   overflow-x: hidden;
 }
 
@@ -28,12 +27,10 @@ h1 {
   font-size: 4em;
   line-height: 130%;
   letter-spacing: 0.01em;
-  color: $black-text;
 }
 
 h2 {
   @include h2-style;
-  color: $black-text;
 }
 
 h3 {
@@ -88,14 +85,22 @@ span {
     top: 0;
     right: 0;
     z-index: 1000;
-    padding: 2rem 4rem;
+    padding: 2.8rem 4rem;
+  }
+
+  .button.theme  {
+    position: fixed;
+    top: 0;
+    right: 24px;
+    z-index: 1000;
+    padding: 2.8rem 4rem;
   }
 
 #root {
  
   width: 100%;
   margin: 0 auto;
-  padding: 2rem 4rem;
+ 
 }
 
 @media (max-width: 1024px) {

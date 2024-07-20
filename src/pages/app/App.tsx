@@ -2,6 +2,8 @@ import { SearchInput } from '@components/Input/SearchInput/SearchInput';
 import { useEffect, useState } from 'react';
 import searchIcon from '@assets/search.svg';
 import errorIcon from '@assets/error.svg';
+import lightIcon from '@assets/light.svg';
+import darkIcon from '@assets/dark.svg';
 import { CardList } from '@components/cardList/CardList';
 import { useSearchFromLocalStorage } from '../../hooks/hooks';
 // import { fetchSearchResults } from '../../services/fetch/fetchSearchResults';
@@ -11,6 +13,7 @@ import { Pagination } from '@components/pagination/Pagination';
 import './app.scss';
 import { Button } from '@components/button/Button';
 import { useGetPeopleQuery } from '@services/fetch/api';
+import { useTheme } from '../../hooks/useTheme';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -20,7 +23,7 @@ export const App: React.FC = () => {
   const [search, setSearch, saveToLocalStorage] = useSearchFromLocalStorage();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
-
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const query = useQuery();
 
@@ -70,9 +73,10 @@ export const App: React.FC = () => {
   };
 
   const totalPages = data ? Math.ceil(data.count / 10) : 0;
+  const themeIcon = theme === 'light' ? darkIcon : lightIcon;
 
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
       <div className="app-header" onClick={handleContainerClick}>
         <h1>Star Wars</h1>
         {error ? (
@@ -95,7 +99,7 @@ export const App: React.FC = () => {
                 imgSrc={searchIcon}
                 imgAlt="Search Icon"
                 type="submit"
-                className="search"
+                className="search icon-invert"
               />
             </form>
             <Button
@@ -103,8 +107,16 @@ export const App: React.FC = () => {
               imgSrc={errorIcon}
               imgAlt="Error Icon"
               type="button"
-              className="error"
+              className="error icon-invert"
               onClick={handleThrowError}
+            />
+            <Button
+              ariaLabel="Theme"
+              imgSrc={themeIcon}
+              imgAlt="Theme Icon"
+              type="button"
+              className="theme"
+              onClick={toggleTheme}
             />
           </>
         )}
