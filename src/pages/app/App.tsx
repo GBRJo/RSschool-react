@@ -14,6 +14,7 @@ import './app.scss';
 import { Button } from '@components/button/Button';
 import { useGetPeopleQuery } from '@services/fetch/api';
 import { useTheme } from '../../hooks/useTheme';
+import { FloatingPanel } from '@components/floatingPanel/FloatingPanel';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -141,6 +142,7 @@ export const App: React.FC = () => {
         </div>
         <div className="details-view">{selectedDetail && <Outlet />}</div>
       </div>
+      <FloatingPanel />
     </div>
   );
 };

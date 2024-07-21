@@ -1,8 +1,9 @@
 interface IButtonProps {
   onClick?: () => void;
   ariaLabel: string;
-  imgSrc: string;
-  imgAlt: string;
+  imgSrc?: string;
+  imgAlt?: string;
+  text?: string;
   disabled?: boolean;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -13,6 +14,7 @@ export const Button: React.FC<IButtonProps> = ({
   ariaLabel,
   imgSrc,
   imgAlt,
+  text,
   className = '',
   disabled = false,
   type = 'button',
@@ -25,7 +27,10 @@ export const Button: React.FC<IButtonProps> = ({
       disabled={disabled}
       className={`button ${className} ${disabled ? 'disabled' : ''}`}
     >
-      <img src={imgSrc} alt={imgAlt} />
+      {imgSrc && (
+        <img src={imgSrc} alt={imgAlt || ''} className="button-icon" />
+      )}
+      {text && <h5 className="button-text">{text}</h5>}
     </button>
   );
 };

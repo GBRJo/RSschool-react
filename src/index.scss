@@ -13,6 +13,7 @@
 @import '@components/input/inputs.scss';
 @import '@components/button/button.scss';
 @import '@components/pagination/pagination.scss';
+@import '@components/checkbox/checkbox';
 
 body {
   display: flex;
@@ -76,8 +77,6 @@ span {
   font-size: 11px;
   line-height: 130%;
   letter-spacing: 0.02em;
-  color: $grey-text;
-
 }
 
   .button.error {
