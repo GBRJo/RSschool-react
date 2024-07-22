@@ -1,8 +1,14 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { Provider } from 'react-redux';
+import { configureStore, Store } from '@reduxjs/toolkit';
+import { vi } from 'vitest';
 import { CardList } from './CardList';
+import selectedPeopleReducer from '../../store/selectedPeopleSlice';
+import { api } from '../../services/fetch/api';
 import { ICardProps } from '@components/card/baseCard/Card';
 import { Person } from '@components/card/ICardProps';
+// Mock Card component
 vi.mock('./Card', () => ({
   Card: ({ person, onClick, isActive }: ICardProps) => (
     <div
@@ -14,6 +20,28 @@ vi.mock('./Card', () => ({
     </div>
   ),
 }));
+
+interface RenderWithProvidersOptions {
+  store?: Store;
+}
+
+const renderWithProviders = (
+  ui: React.ReactElement,
+  { store }: RenderWithProvidersOptions = {}, // Устанавливаем значение по умолчанию
+) => {
+  const configuredStore =
+    store ||
+    configureStore({
+      reducer: {
+        selectedPeople: selectedPeopleReducer,
+        [api.reducerPath]: api.reducer,
+      },
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(api.middleware),
+    });
+
+  return render(<Provider store={configuredStore}>{ui}</Provider>);
+};
 
 describe('CardList component', () => {
   it('renders a list of cards', () => {
@@ -57,7 +85,9 @@ describe('CardList component', () => {
     ];
     const onResultClick = vi.fn();
 
-    render(<CardList results={results} onResultClick={onResultClick} />);
+    renderWithProviders(
+      <CardList results={results} onResultClick={onResultClick} />,
+    );
 
     expect(screen.getByText('Person 1')).toBeInTheDocument();
     expect(screen.getByText('Person 2')).toBeInTheDocument();
@@ -86,7 +116,9 @@ describe('CardList component', () => {
     ];
     const onResultClick = vi.fn();
 
-    render(<CardList results={results} onResultClick={onResultClick} />);
+    renderWithProviders(
+      <CardList results={results} onResultClick={onResultClick} />,
+    );
 
     fireEvent.click(screen.getByText('Person 1'));
 
@@ -134,7 +166,9 @@ describe('CardList component', () => {
     ];
     const onResultClick = vi.fn();
 
-    render(<CardList results={results} onResultClick={onResultClick} />);
+    renderWithProviders(
+      <CardList results={results} onResultClick={onResultClick} />,
+    );
 
     fireEvent.click(screen.getByText('Person 1'));
 

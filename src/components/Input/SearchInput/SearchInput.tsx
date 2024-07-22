@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-interface SearchInputProps {
+export interface SearchInputProps {
   id?: string;
   label?: string;
   type?: string;

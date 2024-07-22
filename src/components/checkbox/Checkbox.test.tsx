@@ -1,64 +1,98 @@
-import '@testing-library/jest-dom/extend-expect';
-import React, { useState } from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Checkbox } from './Checkbox';
 
-describe('Checkbox', () => {
-  test('renders checkbox with label', () => {
-    render(
-      <Checkbox id="test-checkbox" label="Test Checkbox" onChange={() => {}} />,
-    );
-    const checkboxElement = screen.getByLabelText(/test checkbox/i);
-    expect(checkboxElement).toBeInTheDocument();
-  });
-
-  test('checkbox is unchecked by default', () => {
-    render(
-      <Checkbox id="test-checkbox" label="Test Checkbox" onChange={() => {}} />,
-    );
-    const checkboxElement = screen.getByRole('checkbox');
-    expect(checkboxElement).not.toBeChecked();
-  });
-
-  test('checkbox can be checked/unchecked', () => {
-    const Wrapper = () => {
-      const [checked, setChecked] = useState(false);
-      const handleChange = (
-        isChecked: boolean | ((prevState: boolean) => boolean),
-      ) => {
-        setChecked(isChecked);
-      };
-      return (
-        <Checkbox
-          id="test-checkbox"
-          label="Test Checkbox"
-          checked={checked}
-          onChange={handleChange}
-        />
-      );
-    };
-    render(<Wrapper />);
-    const checkboxElement = screen.getByRole('checkbox');
-
-    expect(checkboxElement).not.toBeChecked();
-
-    fireEvent.click(checkboxElement);
-    expect(checkboxElement).toBeChecked();
-
-    fireEvent.click(checkboxElement);
-    expect(checkboxElement).not.toBeChecked();
-  });
-
-  test('checkbox respects the checked prop', () => {
+describe('Checkbox component', () => {
+  it('renders the checkbox with the correct label and attributes', () => {
     render(
       <Checkbox
         id="test-checkbox"
         label="Test Checkbox"
-        checked
+        checked={false}
+        onChange={() => {}}
+        disabled={false}
+      />,
+    );
+
+    const checkboxElement = screen.getByRole('checkbox', {
+      name: /test checkbox/i,
+    });
+    expect(checkboxElement).toBeInTheDocument();
+    expect(checkboxElement).toHaveAttribute('id', 'test-checkbox');
+    expect(checkboxElement).not.toBeChecked();
+    expect(checkboxElement).not.toBeDisabled();
+
+    const labelElement = screen.getByLabelText('Test Checkbox');
+    expect(labelElement).toBeInTheDocument();
+  });
+
+  it('renders the checkbox as checked when the checked prop is true', () => {
+    render(
+      <Checkbox
+        id="test-checkbox"
+        label="Test Checkbox"
+        checked={true}
         onChange={() => {}}
       />,
     );
-    const checkboxElement = screen.getByRole('checkbox');
+
+    const checkboxElement = screen.getByRole('checkbox', {
+      name: /test checkbox/i,
+    });
     expect(checkboxElement).toBeChecked();
+  });
+
+  it('renders the checkbox as disabled when the disabled prop is true', () => {
+    render(
+      <Checkbox
+        id="test-checkbox"
+        label="Test Checkbox"
+        checked={false}
+        onChange={() => {}}
+        disabled={true}
+      />,
+    );
+
+    const checkboxElement = screen.getByRole('checkbox', {
+      name: /test checkbox/i,
+    });
+    expect(checkboxElement).toBeDisabled();
+  });
+
+  it('calls the onChange handler with the correct value when the checkbox is clicked', () => {
+    const handleChange = vi.fn();
+    render(
+      <Checkbox
+        id="test-checkbox"
+        label="Test Checkbox"
+        checked={false}
+        onChange={handleChange}
+      />,
+    );
+
+    const checkboxElement = screen.getByRole('checkbox', {
+      name: /test checkbox/i,
+    });
+    fireEvent.click(checkboxElement);
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledWith(true);
+  });
+
+  it('calls the onChange handler with the correct value when the checkbox is clicked twice', () => {
+    const handleChange = vi.fn();
+    render(
+      <Checkbox
+        id="test-checkbox"
+        label="Test Checkbox"
+        checked={true}
+        onChange={handleChange}
+      />,
+    );
+
+    const checkboxElement = screen.getByRole('checkbox', {
+      name: /test checkbox/i,
+    });
+    fireEvent.click(checkboxElement);
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledWith(false);
   });
 });

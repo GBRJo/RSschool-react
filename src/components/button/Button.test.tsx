@@ -56,4 +56,31 @@ describe('Button component', () => {
     fireEvent.click(buttonElement);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
+
+  it('renders the button with text', () => {
+    render(<Button ariaLabel="test-button" text="Click me" />);
+
+    const buttonElement = screen.getByRole('button', { name: /test-button/i });
+    expect(buttonElement).toBeInTheDocument();
+    expect(screen.getByText('Click me')).toBeInTheDocument();
+  });
+
+  it('renders the button with text and image', () => {
+    render(
+      <Button
+        ariaLabel="test-button"
+        imgSrc="test-image.png"
+        imgAlt="Test Image"
+        text="Click me"
+      />,
+    );
+
+    const buttonElement = screen.getByRole('button', { name: /test-button/i });
+    expect(buttonElement).toBeInTheDocument();
+    expect(screen.getByText('Click me')).toBeInTheDocument();
+
+    const imgElement = screen.getByAltText('Test Image');
+    expect(imgElement).toBeInTheDocument();
+    expect(imgElement).toHaveAttribute('src', 'test-image.png');
+  });
 });

@@ -1,5 +1,5 @@
 import { Person } from '../ICardProps';
-interface DetailedCardProps {
+export interface DetailedCardProps {
   person: Person;
 }
 

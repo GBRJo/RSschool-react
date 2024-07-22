@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/personDetails/PersonDetails.tsx</title>
+    <title>Code coverage report for components/floatingPanel/FloatingPanel.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/personDetails</a> PersonDetails.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/floatingPanel</a> FloatingPanel.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/41</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/41</span>
             </div>
         
             
@@ -106,8 +106,35 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -121,15 +148,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -145,50 +163,53 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { Button } from '@components/button/Button';</span></span></span>
-<span class="cstat-no" title="statement not covered" >import { DetailedCard } from '@components/card/detailedCard/DetailedCard';</span>
-<span class="cstat-no" title="statement not covered" >import { useParams, useNavigate } from 'react-router-dom';</span>
-<span class="cstat-no" title="statement not covered" >import closeIcon from '@assets/close.svg';</span>
-<span class="cstat-no" title="statement not covered" >import { useGetPersonByIdQuery } from '@services/fetch/api';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import React from 'react';</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { useSelector } from 'react-redux';</span>
+import { RootState } from 'store/store';
+<span class="cstat-no" title="statement not covered" >import './floatingPanel.scss';</span>
+<span class="cstat-no" title="statement not covered" >import { useTheme } from '../../hooks/useTheme';</span>
+<span class="cstat-no" title="statement not covered" >import { Button } from '@components/button/Button';</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export const PersonDetails: React.FC = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const { personId } = useParams&lt;{ personId: string }&gt;();</span>
-<span class="cstat-no" title="statement not covered" >  const navigate = useNavigate();</span>
+<span class="cstat-no" title="statement not covered" >export const FloatingPanel: React.FC = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const selectedIds = useSelector(</span>
+<span class="cstat-no" title="statement not covered" >    (state: RootState) =&gt; state.selectedPeople.selectedIds,</span>
+<span class="cstat-no" title="statement not covered" >  );</span>
+<span class="cstat-no" title="statement not covered" >  const { theme } = useTheme();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  const {</span>
-<span class="cstat-no" title="statement not covered" >    data: person,</span>
-<span class="cstat-no" title="statement not covered" >    error,</span>
-<span class="cstat-no" title="statement not covered" >    isLoading,</span>
-<span class="cstat-no" title="statement not covered" >  } = useGetPersonByIdQuery(personId || '');</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  const handleCloseDetails = (): void =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    navigate('/');</span>
+<span class="cstat-no" title="statement not covered" >  const handleClearSelection = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    console.log('Loading selected items:', selectedIds);</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 &nbsp;
+<span class="cstat-no" title="statement not covered" >  const handleLoad = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    console.log('Loading selected items:', selectedIds);</span>
+    // код для загрузки выбранных элементов
+<span class="cstat-no" title="statement not covered" >  };</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  const getElementText = (count: number): string =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return count === 1 ? 'element' : 'elements';</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (selectedIds.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className="person-details"&gt;</span>
-<span class="cstat-no" title="statement not covered" >      {isLoading ? (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="spinner"&gt;Loading...&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >      ) : error ? (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;p&gt;Something went wrong...&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >      ) : person ? (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;DetailedCard person={person} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Button</span>
-<span class="cstat-no" title="statement not covered" >            ariaLabel="Close"</span>
-<span class="cstat-no" title="statement not covered" >            imgAlt="Close Icon"</span>
-<span class="cstat-no" title="statement not covered" >            type="button"</span>
-<span class="cstat-no" title="statement not covered" >            onClick={handleCloseDetails}</span>
-<span class="cstat-no" title="statement not covered" >            imgSrc={closeIcon}</span>
-<span class="cstat-no" title="statement not covered" >          /&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/&gt;</span>
-      ) : (
-<span class="cstat-no" title="statement not covered" >        &lt;p&gt;No person details available.&lt;/p&gt;</span>
-      )}
+<span class="cstat-no" title="statement not covered" >    &lt;div className={`floating-panel ${theme}`}&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;p&gt;</span>
+<span class="cstat-no" title="statement not covered" >        Selected {selectedIds.length} {getElementText(selectedIds.length)}</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;Button</span>
+<span class="cstat-no" title="statement not covered" >        ariaLabel="Submit"</span>
+<span class="cstat-no" title="statement not covered" >        text="Clean"</span>
+<span class="cstat-no" title="statement not covered" >        onClick={handleClearSelection}</span>
+<span class="cstat-no" title="statement not covered" >        className="text-only"</span>
+<span class="cstat-no" title="statement not covered" >      /&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;Button</span>
+<span class="cstat-no" title="statement not covered" >        ariaLabel="Submit"</span>
+<span class="cstat-no" title="statement not covered" >        text="Download"</span>
+<span class="cstat-no" title="statement not covered" >        onClick={handleLoad}</span>
+<span class="cstat-no" title="statement not covered" >        className="text-only"</span>
+<span class="cstat-no" title="statement not covered" >      /&gt;</span>
 <span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
   );
 <span class="cstat-no" title="statement not covered" >};</span>
