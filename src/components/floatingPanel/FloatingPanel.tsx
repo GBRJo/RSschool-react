@@ -1,37 +1,64 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import './floatingPanel.scss';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '@components/button/Button';
+import { clearSelection } from '@store/selectedPeopleSlice';
+import Papa from 'papaparse';
 
 export const FloatingPanel: React.FC = () => {
-  const selectedIds = useSelector(
-    (state: RootState) => state.selectedPeople.selectedIds,
+  const selectedPeople = useSelector(
+    (state: RootState) => state.selectedPeople.selectedPeople,
   );
+  const dispatch = useDispatch();
   const { theme } = useTheme();
 
   const handleClearSelection = () => {
-    console.log('Loading selected items:', selectedIds);
+    dispatch(clearSelection());
   };
 
   const handleLoad = () => {
-    console.log('Loading selected items:', selectedIds);
-    // код для загрузки выбранных элементов
+    const selectedItems = selectedPeople.map((person) => ({
+      name: person.name,
+      birth_year: person.birth_year,
+      eye_color: person.eye_color,
+      gender: person.gender,
+      hair_color: person.hair_color,
+      height: person.height,
+      mass: person.mass,
+      skin_color: person.skin_color,
+      homeworld: person.homeworld,
+      films: person.films.join(', '),
+      species: person.species.join(', '),
+      starships: person.starships.join(', '),
+      vehicles: person.vehicles.join(', '),
+      url: person.url,
+      created: person.created,
+      edited: person.edited,
+    }));
+
+    const csvData = Papa.unparse(selectedItems);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${selectedPeople.length}_people.csv`);
+    link.click();
   };
 
   const getElementText = (count: number): string => {
     return count === 1 ? 'element' : 'elements';
   };
 
-  if (selectedIds.length === 0) {
+  if (selectedPeople.length === 0) {
     return null;
   }
 
   return (
     <div className={`floating-panel ${theme}`}>
       <p>
-        Selected {selectedIds.length} {getElementText(selectedIds.length)}
+        Selected {selectedPeople.length} {getElementText(selectedPeople.length)}
       </p>
       <Button
         ariaLabel="Submit"

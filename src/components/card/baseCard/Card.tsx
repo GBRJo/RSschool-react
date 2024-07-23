@@ -12,13 +12,13 @@ export interface ICardProps {
 
 export const Card: React.FC<ICardProps> = ({ person, onClick, isActive }) => {
   const dispatch = useDispatch();
-  const selectedIds = useSelector(
-    (state: RootState) => state.selectedPeople.selectedIds,
+  const selectedIds = useSelector((state: RootState) =>
+    state.selectedPeople.selectedPeople.map((p) => p.url),
   );
   const isChecked = selectedIds.includes(person.url);
 
   const handleCheckboxChange = () => {
-    dispatch(togglePersonSelection(person.url));
+    dispatch(togglePersonSelection(person));
   };
 
   return (

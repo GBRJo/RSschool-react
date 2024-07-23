@@ -1,27 +1,29 @@
+import { Person } from '@components/card/ICardProps';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface SelectedPeopleState {
-  selectedIds: string[];
+  selectedPeople: Person[];
 }
 
 const initialState: SelectedPeopleState = {
-  selectedIds: [],
+  selectedPeople: [],
 };
 
 const selectedPeopleSlice = createSlice({
   name: 'selectedPeople',
   initialState,
   reducers: {
-    togglePersonSelection(state, action: PayloadAction<string>) {
-      const personId = action.payload;
-      if (state.selectedIds.includes(personId)) {
-        state.selectedIds = state.selectedIds.filter((id) => id !== personId);
+    togglePersonSelection(state, action: PayloadAction<Person>) {
+      const person = action.payload;
+      const index = state.selectedPeople.findIndex((p) => p.url === person.url);
+      if (index >= 0) {
+        state.selectedPeople.splice(index, 1);
       } else {
-        state.selectedIds.push(personId);
+        state.selectedPeople.push(person);
       }
     },
     clearSelection(state) {
-      state.selectedIds = [];
+      state.selectedPeople = [];
     },
   },
 });
