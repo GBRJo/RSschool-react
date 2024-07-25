@@ -1,3 +1,4 @@
+import { useTheme } from '../../hooks/useTheme';
 import React from 'react';
 
 interface ICheckboxProps {
@@ -18,9 +19,10 @@ export const Checkbox: React.FC<ICheckboxProps> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.checked);
   };
+  const { theme } = useTheme();
 
   return (
-    <div className="checkbox">
+    <div className={`checkbox ${theme}`}>
       <input
         type="checkbox"
         checked={checked}

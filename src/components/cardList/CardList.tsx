@@ -1,6 +1,8 @@
 import { Card } from '@components/card/baseCard/Card';
 import { Person } from '@components/card/ICardProps';
-import { useState } from 'react';
+import { setActiveCard } from '@store/activeCardSlice';
+import { RootState } from '@store/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface ICardListProps {
   results: Person[];
@@ -16,10 +18,13 @@ export const CardList: React.FC<ICardListProps> = ({
   results,
   onResultClick,
 }) => {
-  const [activePersonId, setActivePersonId] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const activeCardId = useSelector(
+    (state: RootState) => state.activeCard.activeCardId,
+  );
 
   const handleCardClick = (id: string) => {
-    setActivePersonId(id);
+    dispatch(setActiveCard(id));
     onResultClick(id);
   };
 
@@ -30,7 +35,7 @@ export const CardList: React.FC<ICardListProps> = ({
           key={getIdFromUrl(result.url)}
           person={result}
           onClick={() => handleCardClick(getIdFromUrl(result.url))}
-          isActive={getIdFromUrl(result.url) === activePersonId}
+          isActive={getIdFromUrl(result.url) === activeCardId}
         />
       ))}
     </div>

@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './counterSlice';
 import { api } from '@services/fetch/api';
 import selectedPeopleReducer from './selectedPeopleSlice';
+import activeCardReducer from './activeCardSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    activeCard: activeCardReducer,
     selectedPeople: selectedPeopleReducer,
     [api.reducerPath]: api.reducer,
   },

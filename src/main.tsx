@@ -13,11 +13,7 @@ import { ThemeProvider } from './hooks/ThemeContext.tsx';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <ErrorBoundary fallbackUI={<div>Something went wrong.</div>}>
-        <App />
-      </ErrorBoundary>
-    ),
+    element: <App />,
     errorElement: <NotFound />,
     children: [
       {
@@ -32,7 +28,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <React.StrictMode>
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <ErrorBoundary fallbackUI={<div>Something went wrong.</div>}>
+          <RouterProvider router={router} />
+        </ErrorBoundary>
       </ThemeProvider>
     </React.StrictMode>
   </Provider>,

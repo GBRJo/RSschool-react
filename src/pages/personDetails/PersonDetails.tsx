@@ -1,12 +1,16 @@
 import { Button } from '@components/button/Button';
 import { DetailedCard } from '@components/card/detailedCard/DetailedCard';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import closeIcon from '@assets/close.svg';
 import { useGetPersonByIdQuery } from '@services/fetch/api';
+import { useDispatch } from 'react-redux';
+import { setActiveCard } from '@store/activeCardSlice';
 
 export const PersonDetails: React.FC = () => {
   const { personId } = useParams<{ personId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
 
   const {
     data: person,
@@ -15,7 +19,8 @@ export const PersonDetails: React.FC = () => {
   } = useGetPersonByIdQuery(personId || '');
 
   const handleCloseDetails = (): void => {
-    navigate('/');
+    dispatch(setActiveCard(null));
+    navigate({ pathname: '/', search: location.search });
   };
 
   return (

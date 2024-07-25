@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import './floatingPanel.scss';
@@ -13,6 +13,7 @@ export const FloatingPanel: React.FC = () => {
   );
   const dispatch = useDispatch();
   const { theme } = useTheme();
+  const downloadLinkRef = useRef<HTMLAnchorElement>(null);
 
   const handleClearSelection = () => {
     dispatch(clearSelection());
@@ -41,10 +42,12 @@ export const FloatingPanel: React.FC = () => {
     const csvData = Papa.unparse(selectedItems);
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${selectedPeople.length}_people.csv`);
-    link.click();
+
+    if (downloadLinkRef.current) {
+      downloadLinkRef.current.href = url;
+      downloadLinkRef.current.download = `${selectedPeople.length}_people.csv`;
+      downloadLinkRef.current.click();
+    }
   };
 
   const getElementText = (count: number): string => {
@@ -72,6 +75,9 @@ export const FloatingPanel: React.FC = () => {
         onClick={handleLoad}
         className="text-only"
       />
+      <a ref={downloadLinkRef} style={{ display: 'none' }}>
+        Download
+      </a>
     </div>
   );
 };
