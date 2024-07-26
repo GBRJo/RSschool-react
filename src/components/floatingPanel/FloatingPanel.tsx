@@ -5,7 +5,7 @@ import './floatingPanel.scss';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '@components/button/Button';
 import { clearSelection } from '@store/selectedPeopleSlice';
-import Papa from 'papaparse';
+import { Person } from '@components/card/ICardProps';
 
 export const FloatingPanel: React.FC = () => {
   const selectedPeople = useSelector(
@@ -20,26 +20,38 @@ export const FloatingPanel: React.FC = () => {
   };
 
   const handleLoad = () => {
-    const selectedItems = selectedPeople.map((person) => ({
-      name: person.name,
-      birth_year: person.birth_year,
-      eye_color: person.eye_color,
-      gender: person.gender,
-      hair_color: person.hair_color,
-      height: person.height,
-      mass: person.mass,
-      skin_color: person.skin_color,
-      homeworld: person.homeworld,
-      films: person.films.join(', '),
-      species: person.species.join(', '),
-      starships: person.starships.join(', '),
-      vehicles: person.vehicles.join(', '),
-      url: person.url,
-      created: person.created,
-      edited: person.edited,
-    }));
+    const headers = [
+      'name',
+      'birth_year',
+      'eye_color',
+      'gender',
+      'hair_color',
+      'height',
+      'mass',
+      'skin_color',
+      'homeworld',
+      'films',
+      'species',
+      'starships',
+      'vehicles',
+      'url',
+      'created',
+      'edited',
+    ];
 
-    const csvData = Papa.unparse(selectedItems);
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+
+    for (const person of selectedPeople) {
+      const values = headers.map((header) => {
+        const value = person[header as keyof Person];
+        return Array.isArray(value) ? value.join(', ') : value;
+      });
+      csvRows.push(values.join(','));
+    }
+
+    const csvData = csvRows.join('\n');
+
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
 
