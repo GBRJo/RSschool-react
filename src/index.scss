@@ -1,0 +1,110 @@
+/*
+  Global settings
+*/
+
+// Import of global variables, mixins, and base styles
+@import '@components/grid-layout';
+@import '@components/variables';
+@import '@components/mixins';
+@import '@components/fonts';
+@import '@components/reset';
+
+// Import of global components
+@import '@components/input/inputs.scss';
+@import '@components/button/button.scss';
+@import '@components/pagination/pagination.scss';
+@import '@components/checkbox/checkbox';
+
+body {
+  display: flex;
+  position: relative;
+  min-height: 100vh;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-family: 'Star Jedi', sans-serif;
+  font-size: 4em;
+  line-height: 130%;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  @include h2-style;
+}
+
+h3 {
+  @include h3-style;
+}
+
+h4 {
+  @include h4-style;
+}
+
+h5 {
+  @include h5-style;
+}
+
+p {
+  @include p-style;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $green-color;
+  z-index: -1;
+}
+
+a:hover {
+  color: $black-text;
+}
+
+span {
+  display: flex;
+  font-family: 'Roboto Regular', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 130%;
+  letter-spacing: 0.02em;
+}
+
+  .buttons {
+    position: fixed;
+    top: 0;
+    right: 24px;
+    z-index: 1000;
+    padding: 2.4rem 0rem;
+    display: flex;
+    gap: 16px;
+  }
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+ 
+}
+
+@media (max-width: 1024px) {
+  body {
+    height: auto;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    height: auto;
+    font-size: 8px;
+  }
+}
