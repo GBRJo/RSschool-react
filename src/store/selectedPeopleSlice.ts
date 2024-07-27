@@ -34,11 +34,9 @@ const selectedPeopleSlice = createSlice({
 export const { togglePersonSelection, clearSelection } =
   selectedPeopleSlice.actions;
 
-// Обычный селектор для получения выбранных персонажей
 const getSelectedPeople = (state: RootState) =>
   state.selectedPeople.selectedPeople;
 
-// Мемоизированный селектор для получения URL-ов выбранных персонажей
 export const getSelectedPeopleUrls = createSelector(
   [getSelectedPeople],
   (selectedPeople: Person[]) => selectedPeople.map((p) => p.url),

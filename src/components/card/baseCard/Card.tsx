@@ -5,7 +5,6 @@ import {
   togglePersonSelection,
 } from '../../../store/selectedPeopleSlice';
 import { useDispatch, useSelector } from 'react-redux';
-// import { RootState } from 'store/store';
 
 export interface ICardProps {
   person: Person;

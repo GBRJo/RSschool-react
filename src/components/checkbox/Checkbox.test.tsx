@@ -27,6 +27,4 @@ describe('Checkbox component', () => {
     const labelElement = screen.getByLabelText('Test Checkbox');
     expect(labelElement).toBeInTheDocument();
   });
-
-  // Другие тесты
 });

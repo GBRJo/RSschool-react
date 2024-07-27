@@ -1,13 +1,10 @@
 import { SearchInput } from '@components/Input/SearchInput/SearchInput';
 import { useEffect, useState } from 'react';
 import searchIcon from '@assets/search.svg';
-// import errorIcon from '@assets/error.svg';
 import lightIcon from '@assets/light.svg';
 import darkIcon from '@assets/dark.svg';
 import { CardList } from '@components/cardList/CardList';
 import { useSearchFromLocalStorage } from '../../hooks/hooks';
-// import { fetchSearchResults } from '../../services/fetch/fetchSearchResults';
-// import { Person } from '@components/card/ICardProps';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Pagination } from '@components/pagination/Pagination';
 import './app.scss';
@@ -78,10 +75,6 @@ export const App: React.FC = () => {
     }
   };
 
-  // const handleThrowError = (): void => {
-  //   console.error('Error caught in App: Test error');
-  // };
-
   const totalPages = data ? Math.ceil(data.count / 10) : 0;
   const themeIcon = theme === 'light' ? darkIcon : lightIcon;
 
@@ -113,14 +106,6 @@ export const App: React.FC = () => {
               />
             </form>
             <div className="buttons">
-              {/* <Button
-                ariaLabel="Error"
-                imgSrc={errorIcon}
-                imgAlt="Error Icon"
-                type="button"
-                className="error icon-invert"
-                onClick={handleThrowError}
-              /> */}
               <Button
                 ariaLabel="Theme"
                 imgSrc={themeIcon}

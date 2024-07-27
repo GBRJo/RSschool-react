@@ -11,7 +11,6 @@ import { RootState } from '@store/store';
 import { Person } from '@components/card/ICardProps';
 import { ThemeProvider } from '../../hooks/ThemeContext';
 
-// Mock data
 const mockResults: Person[] = [
   {
     name: 'Person 1',
