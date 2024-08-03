@@ -21,7 +21,7 @@ const PersonDetails: React.FC<PersonDetailsProps> = ({ personId, onClose }) => {
 
   const handleCloseDetails = (): void => {
     dispatch(setActiveCard(null));
-    onClose(); // Вызываем переданный колбэк
+    onClose();
   };
 
   if (!personId) {
