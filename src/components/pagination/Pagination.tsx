@@ -1,6 +1,4 @@
-import { Button } from '@components/button/Button';
-import arrowsLeftIcon from '@assets/arrows-left.svg';
-import arrowRightIcon from '@assets/arrow-right.svg';
+import { Button } from '../button/Button';
 
 interface PaginationProps {
   currentPage: number;
@@ -30,7 +28,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Button
         disabled={currentPage === 1}
         ariaLabel="Previous"
-        imgSrc={arrowsLeftIcon}
+        imgSrc="/assets/arrows-left.svg"
         imgAlt="Left Icon"
         type="button"
         className="arrow-left icon-invert"
@@ -42,7 +40,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Button
         disabled={currentPage === totalPages}
         ariaLabel="Next"
-        imgSrc={arrowRightIcon}
+        imgSrc="/assets/arrow-right.svg"
         imgAlt="Right Icon"
         type="button"
         className="arrow-right icon-invert"

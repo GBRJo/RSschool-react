@@ -1,7 +1,8 @@
-import { Card } from '@components/card/baseCard/Card';
-import { Person } from '@components/card/ICardProps';
-import { setActiveCard } from '@store/activeCardSlice';
-import { RootState } from '@store/store';
+import { setActiveCard } from '../../store/activeCardSlice';
+import { RootState } from '../../store/store';
+import { Card } from '../card/baseCard/Card';
+import { Person } from '../card/ICardProps';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 interface ICardListProps {

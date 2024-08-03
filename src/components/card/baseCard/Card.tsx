@@ -1,10 +1,10 @@
-import { Checkbox } from '@components/checkbox/Checkbox';
 import { Person } from '../ICardProps';
 import {
   getSelectedPeopleUrls,
   togglePersonSelection,
 } from '../../../store/selectedPeopleSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Checkbox } from '../../checkbox/Checkbox';
 
 export interface ICardProps {
   person: Person;

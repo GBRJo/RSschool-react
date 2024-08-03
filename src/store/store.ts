@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { api } from '@services/fetch/api';
+import { api } from '../services/fetch/api';
 import selectedPeopleReducer from './selectedPeopleSlice';
 import activeCardReducer from './activeCardSlice';
 

@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'store/store';
-import './floatingPanel.scss';
+
+// import './floatingPanel.scss';
 import { useTheme } from '../../hooks/useTheme';
-import { Button } from '@components/button/Button';
-import { clearSelection } from '@store/selectedPeopleSlice';
-import { Person } from '@components/card/ICardProps';
+import { RootState } from '../../store/store';
+import { clearSelection } from '../../store/selectedPeopleSlice';
+import { Button } from '../button/Button';
+import { Person } from '../card/ICardProps';
 
 export const FloatingPanel: React.FC = () => {
   const selectedPeople = useSelector(

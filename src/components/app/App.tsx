@@ -1,31 +1,24 @@
-import { SearchInput } from '@components/Input/SearchInput/SearchInput';
+import { SearchInput } from '../Input/SearchInput/SearchInput';
 import { useEffect, useState } from 'react';
-import searchIcon from '@assets/search.svg';
-import lightIcon from '@assets/light.svg';
-import darkIcon from '@assets/dark.svg';
-import { CardList } from '@components/cardList/CardList';
+import { CardList } from '../cardList/CardList';
 import { useSearchFromLocalStorage } from '../../hooks/hooks';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Pagination } from '@components/pagination/Pagination';
-import './app.scss';
-import { Button } from '@components/button/Button';
-import { useGetPeopleQuery } from '@services/fetch/api';
+import { Pagination } from '../pagination/Pagination';
+import { Button } from '../button/Button';
+import { useGetPeopleQuery } from '../../services/fetch/api';
 import { useTheme } from '../../hooks/useTheme';
-import { FloatingPanel } from '@components/floatingPanel/FloatingPanel';
+import { FloatingPanel } from '../floatingPanel/FloatingPanel';
+import { useRouter } from 'next/router';
+import PersonDetails from '../../pages/details/[personId]';
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
-
-export const App: React.FC = () => {
+const App: React.FC = () => {
   const [search, setSearch, saveToLocalStorage] = useSearchFromLocalStorage();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
   const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
-  const query = useQuery();
+  const router = useRouter();
+  const query = router.query;
 
-  const initialPage = parseInt(query.get('page') || '1', 10);
+  const initialPage = parseInt((query.page as string) || '1', 10);
   useEffect(() => {
     setCurrentPage(initialPage);
   }, [initialPage]);
@@ -34,6 +27,10 @@ export const App: React.FC = () => {
     search,
     page: currentPage,
   });
+
+  useEffect(() => {
+    console.log('Selected detail:', selectedDetail);
+  }, [selectedDetail]);
 
   useEffect(() => {
     if (error) {
@@ -55,28 +52,35 @@ export const App: React.FC = () => {
     event.preventDefault();
     setCurrentPage(1);
     saveToLocalStorage(search);
-    navigate(`?page=1`);
+    router.push(`/?page=1`);
   };
 
   const handleResultClick = (id: string): void => {
     setSelectedDetail(id);
-    navigate({ pathname: '/details/' + id, search: `?page=${currentPage}` });
+    // Обновляем URL, чтобы отразить выбранную деталь, но не перенаправляем на другую страницу
+    router.push(`/?page=${currentPage}&detail=${id}`);
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    navigate(`?page=${page}`);
+    router.push(`/?page=${page}`);
   };
 
   const handleContainerClick = (): void => {
     if (selectedDetail) {
       setSelectedDetail(null);
-      navigate({ pathname: '/', search: `?page=${currentPage}` });
+      router.push(`/?page=${currentPage}`);
     }
   };
 
+  const handleCloseDetails = (): void => {
+    setSelectedDetail(null);
+    router.push(`/?page=${currentPage}`);
+  };
+
   const totalPages = data ? Math.ceil(data.count / 10) : 0;
-  const themeIcon = theme === 'light' ? darkIcon : lightIcon;
+  const themeIcon =
+    theme === 'light' ? '/assets/dark.svg' : '/assets/light.svg';
 
   return (
     <div className={`app ${theme}`}>
@@ -99,7 +103,7 @@ export const App: React.FC = () => {
               />
               <Button
                 ariaLabel="Search"
-                imgSrc={searchIcon}
+                imgSrc="/assets/search.svg"
                 imgAlt="Search Icon"
                 type="submit"
                 className="search icon-invert"
@@ -136,9 +140,18 @@ export const App: React.FC = () => {
             </>
           )}
         </div>
-        <div className="details-view">{selectedDetail && <Outlet />}</div>
+        <div className="details-view">
+          {selectedDetail && (
+            <PersonDetails
+              personId={selectedDetail}
+              onClose={handleCloseDetails}
+            />
+          )}
+        </div>
       </div>
       <FloatingPanel />
     </div>
   );
 };
+
+export default App;

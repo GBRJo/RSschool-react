@@ -1,10 +1,11 @@
-import { Button } from '@components/button/Button';
-import { DetailedCard } from '@components/card/detailedCard/DetailedCard';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import closeIcon from '@assets/close.svg';
-import { useGetPersonByIdQuery } from '@services/fetch/api';
+import closeIcon from '../../assets/close.svg';
+
 import { useDispatch } from 'react-redux';
-import { setActiveCard } from '@store/activeCardSlice';
+import { useGetPersonByIdQuery } from '../../services/fetch/api';
+import { setActiveCard } from '../../store/activeCardSlice';
+import { Button } from '../button/Button';
+import { DetailedCard } from '../card/detailedCard/DetailedCard';
 
 export const PersonDetails: React.FC = () => {
   const { personId } = useParams<{ personId: string }>();

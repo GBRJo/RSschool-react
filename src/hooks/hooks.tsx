@@ -2,8 +2,11 @@ import { useCallback, useState } from 'react';
 
 export const useSearchFromLocalStorage = () => {
   const [search, setSearch] = useState<string>(() => {
-    const lastSearch = localStorage.getItem('lastSearch');
-    return lastSearch ?? '';
+    if (typeof window !== 'undefined') {
+      const lastSearch = localStorage.getItem('lastSearch');
+      return lastSearch ?? '';
+    }
+    return '';
   });
 
   const updateSearch = useCallback((newSearch: string) => {
@@ -11,7 +14,9 @@ export const useSearchFromLocalStorage = () => {
   }, []);
 
   const saveToLocalStorage = useCallback((search: string) => {
-    localStorage.setItem('lastSearch', search);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('lastSearch', search);
+    }
   }, []);
 
   return [search, updateSearch, saveToLocalStorage] as const;
