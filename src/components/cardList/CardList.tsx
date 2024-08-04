@@ -1,3 +1,5 @@
+'use client';
+
 import { setActiveCard } from '../../store/activeCardSlice';
 import { RootState } from '../../store/store';
 import { Card } from '../card/baseCard/Card';

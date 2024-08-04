@@ -1,28 +1,21 @@
-// pages/details/[personId].tsx
+'use client';
+
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useGetPersonByIdQuery } from '../../services/fetch/api';
-import { DetailedCard } from '../../components/card/detailedCard/DetailedCard';
-import { Button } from '../../components/button/Button';
-import { setActiveCard } from '../../store/activeCardSlice';
-interface PersonDetailsProps {
+import { Button } from '../../../src/components/button/Button';
+import { DetailedCard } from '../../../src/components/card/detailedCard/DetailedCard';
+import { useGetPersonByIdQuery } from '../../api/hello';
+
+type PersonDetailsProps = {
   personId: string;
   onClose: () => void;
-}
+};
 
 const PersonDetails: React.FC<PersonDetailsProps> = ({ personId, onClose }) => {
-  const dispatch = useDispatch();
-
   const {
     data: person,
     error,
     isLoading,
   } = useGetPersonByIdQuery(personId || '');
-
-  const handleCloseDetails = (): void => {
-    dispatch(setActiveCard(null));
-    onClose();
-  };
 
   if (!personId) {
     return <p>No person ID provided.</p>;
@@ -41,7 +34,7 @@ const PersonDetails: React.FC<PersonDetailsProps> = ({ personId, onClose }) => {
             ariaLabel="Close"
             imgAlt="Close Icon"
             type="button"
-            onClick={handleCloseDetails}
+            onClick={onClose}
             imgSrc="/assets/close.svg"
           />
         </>

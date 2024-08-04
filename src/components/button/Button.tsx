@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface IButtonProps {
   onClick?: () => void;
   ariaLabel: string;
@@ -28,7 +30,13 @@ export const Button: React.FC<IButtonProps> = ({
       className={`button ${className} ${disabled ? 'disabled' : ''}`}
     >
       {imgSrc && (
-        <img src={imgSrc} alt={imgAlt || ''} className="button-icon" />
+        <Image
+          src={imgSrc}
+          alt={imgAlt || ''}
+          className="button-icon"
+          width={24}
+          height={24}
+        />
       )}
       {text && <h5 className="button-text">{text}</h5>}
     </button>

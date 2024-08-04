@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/fetch/api.ts</title>
+    <title>Code coverage report for components/NotFound/NotFound.test.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">services/fetch</a> api.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/NotFound</a> NotFound.test.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/20</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/20</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -85,71 +85,50 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Person } from '@components/card/ICardProps';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import { NotFound } from './NotFound';
 &nbsp;
-export const api = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://swapi.dev/api/' }),
-  endpoints: (builder) =&gt; ({
-    getPeople: builder.query&lt;
-      { results: Person[]; count: number },
-      { search: string; page: number }
-    &gt;({
-      query: <span class="fstat-no" title="function not covered" >({ search, page }) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >        `people/?page=${page}&amp;search=${encodeURIComponent(search)}`,</span>
-    }),
-    getPersonById: builder.query&lt;Person, string&gt;({
-      query: <span class="fstat-no" title="function not covered" >(id) =&gt; `people/${id}/`,</span>
-    }),
-  }),
+describe('NotFound Component', () =&gt; {
+  it('renders the 404 message', () =&gt; {
+    render(&lt;NotFound /&gt;);
+    expect(screen.getByText('404 - Page Not Found')).toBeInTheDocument();
+  });
+&nbsp;
+  it('renders the description message', () =&gt; {
+    render(&lt;NotFound /&gt;);
+    expect(
+      screen.getByText('The page you are looking for does not exist.'),
+    ).toBeInTheDocument();
+  });
+&nbsp;
+  it('does not render any other text', () =&gt; {
+    render(&lt;NotFound /&gt;);
+    expect(screen.queryByText('Some other text')).not.toBeInTheDocument();
+  });
 });
-&nbsp;
-type UseGetPeopleQuery = typeof api.endpoints.getPeople.useQuery;
-&nbsp;
-type UseGetPersonByIdQuery = typeof api.endpoints.getPersonById.useQuery;
-&nbsp;
-export const useGetPeopleQuery: UseGetPeopleQuery =
-  api.endpoints.getPeople.useQuery;
-&nbsp;
-export const useGetPersonByIdQuery: UseGetPersonByIdQuery =
-  api.endpoints.getPersonById.useQuery;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

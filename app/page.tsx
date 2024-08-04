@@ -1,14 +1,16 @@
-import { SearchInput } from '../Input/SearchInput/SearchInput';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CardList } from '../cardList/CardList';
-import { useSearchFromLocalStorage } from '../../hooks/hooks';
-import { Pagination } from '../pagination/Pagination';
-import { Button } from '../button/Button';
-import { useGetPeopleQuery } from '../../services/fetch/api';
-import { useTheme } from '../../hooks/useTheme';
-import { FloatingPanel } from '../floatingPanel/FloatingPanel';
-import { useRouter } from 'next/router';
-import PersonDetails from '../../pages/details/[personId]';
+import { Button } from '../src/components/button/Button';
+import { CardList } from '../src/components/cardList/CardList';
+import { FloatingPanel } from '../src/components/floatingPanel/FloatingPanel';
+import { SearchInput } from '../src/components/Input/SearchInput/SearchInput';
+import { Pagination } from '../src/components/pagination/Pagination';
+import { useSearchFromLocalStorage } from '../src/hooks/hooks';
+import { useTheme } from '../src/hooks/useTheme';
+import { useGetPeopleQuery } from './api/hello';
+import PersonDetails from './details/[personId]/page';
 
 const App: React.FC = () => {
   const [search, setSearch, saveToLocalStorage] = useSearchFromLocalStorage();
@@ -16,12 +18,13 @@ const App: React.FC = () => {
   const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
-  const query = router.query;
 
-  const initialPage = parseInt((query.page as string) || '1', 10);
   useEffect(() => {
+    // This code runs only on the client
+    const query = new URLSearchParams(window.location.search);
+    const initialPage = parseInt(query.get('page') || '1', 10);
     setCurrentPage(initialPage);
-  }, [initialPage]);
+  }, []);
 
   const { data, error, isLoading } = useGetPeopleQuery({
     search,
@@ -57,7 +60,6 @@ const App: React.FC = () => {
 
   const handleResultClick = (id: string): void => {
     setSelectedDetail(id);
-    // Обновляем URL, чтобы отразить выбранную деталь, но не перенаправляем на другую страницу
     router.push(`/?page=${currentPage}&detail=${id}`);
   };
 

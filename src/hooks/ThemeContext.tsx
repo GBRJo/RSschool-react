@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useState, ReactNode, useCallback } from 'react';
 
 type Theme = 'light' | 'dark';
@@ -10,6 +12,7 @@ export interface ThemeContextProps {
 export const ThemeContext = createContext<ThemeContextProps | undefined>(
   undefined,
 );
+
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
