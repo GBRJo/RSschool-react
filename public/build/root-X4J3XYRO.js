@@ -5,7 +5,7 @@ import {
   api,
   configureStore,
   selectedPeopleSlice_default
-} from "/build/_shared/chunk-HNR7UIHW.js";
+} from "/build/_shared/chunk-DOFVYQPE.js";
 import {
   Links,
   LiveReload,
@@ -167,4 +167,4 @@ export {
   links,
   meta
 };
-//# sourceMappingURL=/build/root-3X2ANSGJ.js.map
+//# sourceMappingURL=/build/root-X4J3XYRO.js.map

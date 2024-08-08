@@ -8,7 +8,7 @@ import {
   useGetPeopleQuery,
   useGetPersonByIdQuery,
   useSelector
-} from "/build/_shared/chunk-HNR7UIHW.js";
+} from "/build/_shared/chunk-DOFVYQPE.js";
 import {
   useNavigate
 } from "/build/_shared/chunk-PVNSLVPX.js";
@@ -955,4 +955,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   page_default2 as page_default
 };
-//# sourceMappingURL=/build/_shared/chunk-6GLVL545.js.map
+//# sourceMappingURL=/build/_shared/chunk-32E3ZG7O.js.map

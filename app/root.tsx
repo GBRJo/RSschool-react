@@ -1,16 +1,24 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from '@remix-run/react';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from '~/hooks/ThemeContext';
+
 import { store } from './store/store';
-import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import { cssBundleHref } from '@remix-run/css-bundle';
+import type { LinksFunction } from '@remix-run/node';
 
 import stylesheetUrl from './index.css';
+import { ThemeProvider } from './hooks/ThemeContext';
 
 export const links: LinksFunction = () => {
   return [
-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-    { rel: "stylesheet", href: stylesheetUrl },
+    ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+    { rel: 'stylesheet', href: stylesheetUrl },
   ];
 };
 
@@ -46,4 +54,3 @@ export default function Root() {
     </html>
   );
 }
-

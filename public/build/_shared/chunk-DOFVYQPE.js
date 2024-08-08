@@ -527,54 +527,6 @@ var batch = defaultNoopBatch;
 initializeUseSelector(import_with_selector.useSyncExternalStoreWithSelector);
 initializeConnect(React2.useSyncExternalStore);
 
-// app/hooks/ThemeContext.tsx
-var import_react = __toESM(require_react(), 1);
-var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime(), 1);
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app\\\\hooks\\\\ThemeContext.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-var _s = $RefreshSig$();
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app\\hooks\\ThemeContext.tsx"
-  );
-  import.meta.hot.lastModified = "1722901663983.056";
-}
-var ThemeContext = (0, import_react.createContext)(void 0);
-var ThemeProvider = ({
-  children
-}) => {
-  _s();
-  const [theme, setTheme] = (0, import_react.useState)("light");
-  const toggleTheme = (0, import_react.useCallback)(() => {
-    setTheme((prevTheme) => prevTheme === "light" ? "dark" : "light");
-  }, []);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(ThemeContext.Provider, { value: {
-    theme,
-    toggleTheme
-  }, children }, void 0, false, {
-    fileName: "app/hooks/ThemeContext.tsx",
-    lineNumber: 33,
-    columnNumber: 10
-  }, this);
-};
-_s(ThemeProvider, "0d0cSF6cpdi+NS9muYOEDQdbvFU=");
-_c = ThemeProvider;
-var _c;
-$RefreshReg$(_c, "ThemeProvider");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
 // node_modules/redux/dist/redux.mjs
 var $$observable = /* @__PURE__ */ (() => typeof Symbol === "function" && Symbol.observable || "@@observable")();
 var symbol_observable_default = $$observable;
@@ -5590,12 +5542,12 @@ var coreModule = ({
 var createApi = /* @__PURE__ */ buildCreateApi(coreModule());
 
 // node_modules/@reduxjs/toolkit/dist/query/react/rtk-query-react.modern.mjs
+var import_react = __toESM(require_react(), 1);
 var import_react2 = __toESM(require_react(), 1);
 var import_react3 = __toESM(require_react(), 1);
 var import_react4 = __toESM(require_react(), 1);
 var import_react5 = __toESM(require_react(), 1);
-var import_react6 = __toESM(require_react(), 1);
-var React4 = __toESM(require_react(), 1);
+var React3 = __toESM(require_react(), 1);
 function isQueryDefinition2(e) {
   return e.type === "query";
 }
@@ -5644,7 +5596,7 @@ var defaultSerializeQueryArgs2 = ({
 };
 var UNINITIALIZED_VALUE = Symbol();
 function useStableQueryArgs(queryArgs, serialize, endpointDefinition, endpointName) {
-  const incoming = (0, import_react3.useMemo)(() => ({
+  const incoming = (0, import_react2.useMemo)(() => ({
     queryArgs,
     serialized: typeof queryArgs == "object" ? serialize({
       queryArgs,
@@ -5652,8 +5604,8 @@ function useStableQueryArgs(queryArgs, serialize, endpointDefinition, endpointNa
       endpointName
     }) : queryArgs
   }), [queryArgs, serialize, endpointDefinition, endpointName]);
-  const cache22 = (0, import_react3.useRef)(incoming);
-  (0, import_react3.useEffect)(() => {
+  const cache22 = (0, import_react2.useRef)(incoming);
+  (0, import_react2.useEffect)(() => {
     if (cache22.current.serialized !== incoming.serialized) {
       cache22.current = incoming;
     }
@@ -5661,8 +5613,8 @@ function useStableQueryArgs(queryArgs, serialize, endpointDefinition, endpointNa
   return cache22.current.serialized === incoming.serialized ? cache22.current.queryArgs : queryArgs;
 }
 function useShallowStableValue(value) {
-  const cache22 = (0, import_react4.useRef)(value);
-  (0, import_react4.useEffect)(() => {
+  const cache22 = (0, import_react3.useRef)(value);
+  (0, import_react3.useEffect)(() => {
     if (!shallowEqual(cache22.current, value)) {
       cache22.current = value;
     }
@@ -5673,7 +5625,7 @@ var canUseDOM2 = () => !!(typeof window !== "undefined" && typeof window.documen
 var isDOM = /* @__PURE__ */ canUseDOM2();
 var isRunningInReactNative = () => typeof navigator !== "undefined" && navigator.product === "ReactNative";
 var isReactNative2 = /* @__PURE__ */ isRunningInReactNative();
-var getUseIsomorphicLayoutEffect = () => isDOM || isReactNative2 ? import_react2.useLayoutEffect : import_react2.useEffect;
+var getUseIsomorphicLayoutEffect = () => isDOM || isReactNative2 ? import_react.useLayoutEffect : import_react.useEffect;
 var useIsomorphicLayoutEffect2 = /* @__PURE__ */ getUseIsomorphicLayoutEffect();
 var noPendingQueryStateSelector = (selected) => {
   if (selected.isUninitialized) {
@@ -5702,7 +5654,7 @@ function buildHooks({
   serializeQueryArgs,
   context
 }) {
-  const usePossiblyImmediateEffect = unstable__sideEffectsInRender ? (cb) => cb() : import_react2.useEffect;
+  const usePossiblyImmediateEffect = unstable__sideEffectsInRender ? (cb) => cb() : import_react.useEffect;
   return {
     buildQueryHooks,
     buildMutationHook,
@@ -5744,7 +5696,7 @@ function buildHooks({
   function usePrefetch(endpointName, defaultOptions) {
     const dispatch = useDispatch2();
     const stableDefaultOptions = useShallowStableValue(defaultOptions);
-    return (0, import_react2.useCallback)((arg, options) => dispatch(api2.util.prefetch(endpointName, arg, {
+    return (0, import_react.useCallback)((arg, options) => dispatch(api2.util.prefetch(endpointName, arg, {
       ...stableDefaultOptions,
       ...options
     })), [endpointName, dispatch, stableDefaultOptions]);
@@ -5762,7 +5714,7 @@ function buildHooks({
         initiate
       } = api2.endpoints[name];
       const dispatch = useDispatch2();
-      const subscriptionSelectorsRef = (0, import_react2.useRef)(void 0);
+      const subscriptionSelectorsRef = (0, import_react.useRef)(void 0);
       if (!subscriptionSelectorsRef.current) {
         const returnedValue = dispatch(api2.internalActions.internal_getRTKQSubscriptions());
         if (true) {
@@ -5790,8 +5742,8 @@ function buildHooks({
         pollingInterval,
         skipPollingIfUnfocused
       });
-      const lastRenderHadSubscription = (0, import_react2.useRef)(false);
-      const promiseRef = (0, import_react2.useRef)(void 0);
+      const lastRenderHadSubscription = (0, import_react.useRef)(false);
+      const promiseRef = (0, import_react.useRef)(void 0);
       let {
         queryCacheKey,
         requestId
@@ -5831,13 +5783,13 @@ function buildHooks({
           lastPromise.updateSubscriptionOptions(stableSubscriptionOptions);
         }
       }, [dispatch, initiate, refetchOnMountOrArgChange, stableArg, stableSubscriptionOptions, subscriptionRemoved]);
-      (0, import_react2.useEffect)(() => {
+      (0, import_react.useEffect)(() => {
         return () => {
           promiseRef.current?.unsubscribe();
           promiseRef.current = void 0;
         };
       }, []);
-      return (0, import_react2.useMemo)(() => ({
+      return (0, import_react.useMemo)(() => ({
         /**
          * A method to manually refetch data for the query
          */
@@ -5858,8 +5810,8 @@ function buildHooks({
         initiate
       } = api2.endpoints[name];
       const dispatch = useDispatch2();
-      const [arg, setArg] = (0, import_react2.useState)(UNINITIALIZED_VALUE);
-      const promiseRef = (0, import_react2.useRef)(void 0);
+      const [arg, setArg] = (0, import_react.useState)(UNINITIALIZED_VALUE);
+      const promiseRef = (0, import_react.useRef)(void 0);
       const stableSubscriptionOptions = useShallowStableValue({
         refetchOnReconnect,
         refetchOnFocus,
@@ -5872,11 +5824,11 @@ function buildHooks({
           promiseRef.current?.updateSubscriptionOptions(stableSubscriptionOptions);
         }
       }, [stableSubscriptionOptions]);
-      const subscriptionOptionsRef = (0, import_react2.useRef)(stableSubscriptionOptions);
+      const subscriptionOptionsRef = (0, import_react.useRef)(stableSubscriptionOptions);
       usePossiblyImmediateEffect(() => {
         subscriptionOptionsRef.current = stableSubscriptionOptions;
       }, [stableSubscriptionOptions]);
-      const trigger = (0, import_react2.useCallback)(function(arg2, preferCacheValue = false) {
+      const trigger = (0, import_react.useCallback)(function(arg2, preferCacheValue = false) {
         let promise;
         batch2(() => {
           promiseRef.current?.unsubscribe();
@@ -5888,17 +5840,17 @@ function buildHooks({
         });
         return promise;
       }, [dispatch, initiate]);
-      (0, import_react2.useEffect)(() => {
+      (0, import_react.useEffect)(() => {
         return () => {
           promiseRef?.current?.unsubscribe();
         };
       }, []);
-      (0, import_react2.useEffect)(() => {
+      (0, import_react.useEffect)(() => {
         if (arg !== UNINITIALIZED_VALUE && !promiseRef.current) {
           trigger(arg, true);
         }
       }, [arg, trigger]);
-      return (0, import_react2.useMemo)(() => [trigger, arg], [trigger, arg]);
+      return (0, import_react.useMemo)(() => [trigger, arg], [trigger, arg]);
     };
     const useQueryState = (arg, {
       skip = false,
@@ -5908,13 +5860,13 @@ function buildHooks({
         select
       } = api2.endpoints[name];
       const stableArg = useStableQueryArgs(skip ? skipToken : arg, serializeQueryArgs, context.endpointDefinitions[name], name);
-      const lastValue = (0, import_react2.useRef)(void 0);
-      const selectDefaultResult = (0, import_react2.useMemo)(() => createSelector2([select(stableArg), (_, lastResult) => lastResult, (_) => stableArg], queryStatePreSelector, {
+      const lastValue = (0, import_react.useRef)(void 0);
+      const selectDefaultResult = (0, import_react.useMemo)(() => createSelector2([select(stableArg), (_, lastResult) => lastResult, (_) => stableArg], queryStatePreSelector, {
         memoizeOptions: {
           resultEqualityCheck: shallowEqual
         }
       }), [select, stableArg]);
-      const querySelector = (0, import_react2.useMemo)(() => selectFromResult ? createSelector2([selectDefaultResult], selectFromResult, {
+      const querySelector = (0, import_react.useMemo)(() => selectFromResult ? createSelector2([selectDefaultResult], selectFromResult, {
         devModeChecks: {
           identityFunctionCheck: "never"
         }
@@ -5937,10 +5889,10 @@ function buildHooks({
           ...options,
           skip: arg === UNINITIALIZED_VALUE
         });
-        const info = (0, import_react2.useMemo)(() => ({
+        const info = (0, import_react.useMemo)(() => ({
           lastArg: arg
         }), [arg]);
-        return (0, import_react2.useMemo)(() => [trigger, queryStateResults, info], [trigger, queryStateResults, info]);
+        return (0, import_react.useMemo)(() => [trigger, queryStateResults, info], [trigger, queryStateResults, info]);
       },
       useQuery(arg, options) {
         const querySubscriptionResults = useQuerySubscription(arg, options);
@@ -5956,7 +5908,7 @@ function buildHooks({
           isError: isError2,
           error
         } = queryStateResults;
-        (0, import_react2.useDebugValue)({
+        (0, import_react.useDebugValue)({
           data,
           status,
           isLoading,
@@ -5964,7 +5916,7 @@ function buildHooks({
           isError: isError2,
           error
         });
-        return (0, import_react2.useMemo)(() => ({
+        return (0, import_react.useMemo)(() => ({
           ...queryStateResults,
           ...querySubscriptionResults
         }), [queryStateResults, querySubscriptionResults]);
@@ -5981,13 +5933,13 @@ function buildHooks({
         initiate
       } = api2.endpoints[name];
       const dispatch = useDispatch2();
-      const [promise, setPromise] = (0, import_react2.useState)();
-      (0, import_react2.useEffect)(() => () => {
+      const [promise, setPromise] = (0, import_react.useState)();
+      (0, import_react.useEffect)(() => () => {
         if (!promise?.arg.fixedCacheKey) {
           promise?.reset();
         }
       }, [promise]);
-      const triggerMutation = (0, import_react2.useCallback)(function(arg) {
+      const triggerMutation = (0, import_react.useCallback)(function(arg) {
         const promise2 = dispatch(initiate(arg, {
           fixedCacheKey
         }));
@@ -5997,14 +5949,14 @@ function buildHooks({
       const {
         requestId
       } = promise || {};
-      const selectDefaultResult = (0, import_react2.useMemo)(() => select({
+      const selectDefaultResult = (0, import_react.useMemo)(() => select({
         fixedCacheKey,
         requestId: promise?.requestId
       }), [fixedCacheKey, promise, select]);
-      const mutationSelector = (0, import_react2.useMemo)(() => selectFromResult ? createSelector2([selectDefaultResult], selectFromResult) : selectDefaultResult, [selectFromResult, selectDefaultResult]);
+      const mutationSelector = (0, import_react.useMemo)(() => selectFromResult ? createSelector2([selectDefaultResult], selectFromResult) : selectDefaultResult, [selectFromResult, selectDefaultResult]);
       const currentState = useSelector2(mutationSelector, shallowEqual);
       const originalArgs = fixedCacheKey == null ? promise?.arg.originalArgs : void 0;
-      const reset = (0, import_react2.useCallback)(() => {
+      const reset = (0, import_react.useCallback)(() => {
         batch2(() => {
           if (promise) {
             setPromise(void 0);
@@ -6026,7 +5978,7 @@ function buildHooks({
         isError: isError2,
         error
       } = currentState;
-      (0, import_react2.useDebugValue)({
+      (0, import_react.useDebugValue)({
         endpointName,
         data,
         status,
@@ -6035,12 +5987,12 @@ function buildHooks({
         isError: isError2,
         error
       });
-      const finalState = (0, import_react2.useMemo)(() => ({
+      const finalState = (0, import_react.useMemo)(() => ({
         ...currentState,
         originalArgs,
         reset
       }), [currentState, originalArgs, reset]);
-      return (0, import_react2.useMemo)(() => [triggerMutation, finalState], [triggerMutation, finalState]);
+      return (0, import_react.useMemo)(() => [triggerMutation, finalState], [triggerMutation, finalState]);
     };
   }
 }
@@ -6158,6 +6110,54 @@ var api = createApi2({
 var useGetPeopleQuery = api.endpoints.getPeople.useQuery;
 var useGetPersonByIdQuery = api.endpoints.getPersonById.useQuery;
 
+// app/hooks/ThemeContext.tsx
+var import_react7 = __toESM(require_react(), 1);
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime(), 1);
+if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
+  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
+} else {
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    window.$RefreshRuntime$.register(type, '"app\\\\hooks\\\\ThemeContext.tsx"' + id);
+  };
+  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
+}
+var prevRefreshReg;
+var prevRefreshSig;
+var _s = $RefreshSig$();
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app\\hooks\\ThemeContext.tsx"
+  );
+  import.meta.hot.lastModified = "1722901663983.056";
+}
+var ThemeContext = (0, import_react7.createContext)(void 0);
+var ThemeProvider = ({
+  children
+}) => {
+  _s();
+  const [theme, setTheme] = (0, import_react7.useState)("light");
+  const toggleTheme = (0, import_react7.useCallback)(() => {
+    setTheme((prevTheme) => prevTheme === "light" ? "dark" : "light");
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(ThemeContext.Provider, { value: {
+    theme,
+    toggleTheme
+  }, children }, void 0, false, {
+    fileName: "app/hooks/ThemeContext.tsx",
+    lineNumber: 33,
+    columnNumber: 10
+  }, this);
+};
+_s(ThemeProvider, "0d0cSF6cpdi+NS9muYOEDQdbvFU=");
+_c = ThemeProvider;
+var _c;
+$RefreshReg$(_c, "ThemeProvider");
+window.$RefreshReg$ = prevRefreshReg;
+window.$RefreshSig$ = prevRefreshSig;
+
 // app/store/selectedPeopleSlice.ts
 if (import.meta) {
   import.meta.hot = createHotContext(
@@ -6223,8 +6223,6 @@ export {
   useSelector,
   Provider_default,
   useDispatch,
-  ThemeContext,
-  ThemeProvider,
   configureStore,
   togglePersonSelection,
   clearSelection,
@@ -6234,7 +6232,9 @@ export {
   activeCardSlice_default,
   api,
   useGetPeopleQuery,
-  useGetPersonByIdQuery
+  useGetPersonByIdQuery,
+  ThemeContext,
+  ThemeProvider
 };
 /*! Bundled license information:
 
@@ -6249,4 +6249,4 @@ use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js
    * LICENSE file in the root directory of this source tree.
    *)
 */
-//# sourceMappingURL=/build/_shared/chunk-HNR7UIHW.js.map
+//# sourceMappingURL=/build/_shared/chunk-DOFVYQPE.js.map

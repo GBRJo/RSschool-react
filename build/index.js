@@ -16,7 +16,7 @@ import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { jsxDEV } from "react/jsx-dev-runtime";
 var ABORT_DELAY = 5e3;
-function handleRequest(request, responseStatusCode, responseHeaders, remixContext, loadContext) {
+function handleRequest(request, responseStatusCode, responseHeaders, remixContext) {
   return isbot(request.headers.get("user-agent") || "") ? handleBotRequest(
     request,
     responseStatusCode,
@@ -43,7 +43,7 @@ function handleBotRequest(request, responseStatusCode, responseHeaders, remixCon
         !1,
         {
           fileName: "app/entry.server.tsx",
-          lineNumber: 40,
+          lineNumber: 39,
           columnNumber: 7
         },
         this
@@ -83,7 +83,7 @@ function handleBrowserRequest(request, responseStatusCode, responseHeaders, remi
         !1,
         {
           fileName: "app/entry.server.tsx",
-          lineNumber: 82,
+          lineNumber: 81,
           columnNumber: 7
         },
         this
@@ -117,26 +117,15 @@ __export(root_exports, {
   links: () => links,
   meta: () => meta
 });
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration
+} from "@remix-run/react";
 import { Provider } from "react-redux";
-
-// app/hooks/ThemeContext.tsx
-import { createContext, useState, useCallback } from "react";
-import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
-var ThemeContext = createContext(
-  void 0
-), ThemeProvider = ({
-  children
-}) => {
-  let [theme, setTheme] = useState("light"), toggleTheme = useCallback(() => {
-    setTheme((prevTheme) => prevTheme === "light" ? "dark" : "light");
-  }, []);
-  return /* @__PURE__ */ jsxDEV2(ThemeContext.Provider, { value: { theme, toggleTheme }, children }, void 0, !1, {
-    fileName: "app/hooks/ThemeContext.tsx",
-    lineNumber: 26,
-    columnNumber: 5
-  }, this);
-};
 
 // app/store/store.ts
 import { configureStore } from "@reduxjs/toolkit";
@@ -205,6 +194,24 @@ var store = configureStore({
 // app/index.css
 var app_default = "/build/_assets/index-QFEZ24QT.css";
 
+// app/hooks/ThemeContext.tsx
+import { createContext, useState, useCallback } from "react";
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var ThemeContext = createContext(
+  void 0
+), ThemeProvider = ({
+  children
+}) => {
+  let [theme, setTheme] = useState("light"), toggleTheme = useCallback(() => {
+    setTheme((prevTheme) => prevTheme === "light" ? "dark" : "light");
+  }, []);
+  return /* @__PURE__ */ jsxDEV2(ThemeContext.Provider, { value: { theme, toggleTheme }, children }, void 0, !1, {
+    fileName: "app/hooks/ThemeContext.tsx",
+    lineNumber: 26,
+    columnNumber: 5
+  }, this);
+};
+
 // app/root.tsx
 import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
 var links = () => [
@@ -225,60 +232,60 @@ function Root() {
     /* @__PURE__ */ jsxDEV3("head", { children: [
       /* @__PURE__ */ jsxDEV3(Meta, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 31,
+        lineNumber: 39,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV3(Links, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 32,
+        lineNumber: 40,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 30,
+      lineNumber: 38,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ jsxDEV3("body", { children: [
       /* @__PURE__ */ jsxDEV3(Provider, { store, children: /* @__PURE__ */ jsxDEV3(ThemeProvider, { children: /* @__PURE__ */ jsxDEV3("div", { id: "root", children: /* @__PURE__ */ jsxDEV3(Outlet, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 38,
+        lineNumber: 46,
         columnNumber: 15
       }, this) }, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 37,
+        lineNumber: 45,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 36,
+        lineNumber: 44,
         columnNumber: 11
       }, this) }, void 0, !1, {
-        fileName: "app/root.tsx",
-        lineNumber: 35,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV3(ScrollRestoration, {}, void 0, !1, {
-        fileName: "app/root.tsx",
-        lineNumber: 42,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV3(Scripts, {}, void 0, !1, {
         fileName: "app/root.tsx",
         lineNumber: 43,
         columnNumber: 9
       }, this),
+      /* @__PURE__ */ jsxDEV3(ScrollRestoration, {}, void 0, !1, {
+        fileName: "app/root.tsx",
+        lineNumber: 50,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV3(Scripts, {}, void 0, !1, {
+        fileName: "app/root.tsx",
+        lineNumber: 51,
+        columnNumber: 9
+      }, this),
       /* @__PURE__ */ jsxDEV3(LiveReload, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 44,
+        lineNumber: 52,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 34,
+      lineNumber: 42,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/root.tsx",
-    lineNumber: 29,
+    lineNumber: 37,
     columnNumber: 5
   }, this);
 }
@@ -1084,7 +1091,7 @@ __export(__exports, {
 });
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-V3O6XNFN.js", imports: ["/build/_shared/chunk-O4BRYNJ4.js", "/build/_shared/chunk-PVNSLVPX.js", "/build/_shared/chunk-U4FRFQSK.js", "/build/_shared/chunk-XGOTYLZ5.js", "/build/_shared/chunk-FJ44GY64.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-7M6SC7J5.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-3X2ANSGJ.js", imports: ["/build/_shared/chunk-HNR7UIHW.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-W6C5YCYU.js", imports: ["/build/_shared/chunk-6GLVL545.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-UPUYIJKM.js", imports: ["/build/_shared/chunk-6GLVL545.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "48063261", hmr: { runtime: "/build/_shared\\chunk-FJ44GY64.js", timestamp: 1723076432150 }, url: "/build/manifest-48063261.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-V3O6XNFN.js", imports: ["/build/_shared/chunk-O4BRYNJ4.js", "/build/_shared/chunk-PVNSLVPX.js", "/build/_shared/chunk-U4FRFQSK.js", "/build/_shared/chunk-XGOTYLZ5.js", "/build/_shared/chunk-FJ44GY64.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-7M6SC7J5.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-X4J3XYRO.js", imports: ["/build/_shared/chunk-DOFVYQPE.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-5BOJVWTE.js", imports: ["/build/_shared/chunk-32E3ZG7O.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-7WS4M4R3.js", imports: ["/build/_shared/chunk-32E3ZG7O.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "d4e135a6", hmr: { runtime: "/build/_shared\\chunk-FJ44GY64.js", timestamp: 1723160187548 }, url: "/build/manifest-D4E135A6.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1, v3_throwAbortReason: !1, unstable_singleFetch: !1, unstable_lazyRouteDiscovery: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
