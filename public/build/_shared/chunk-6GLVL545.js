@@ -736,7 +736,7 @@ var useSearchFromLocalStorage = () => {
   const [search, setSearch] = (0, import_react3.useState)(() => {
     if (typeof window !== "undefined") {
       const lastSearch = localStorage.getItem("lastSearch");
-      return lastSearch != null ? lastSearch : "";
+      return lastSearch ?? "";
     }
     return "";
   });
@@ -898,7 +898,7 @@ var App = () => {
         lineNumber: 120,
         columnNumber: 24
       }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(CardList, { results: (data == null ? void 0 : data.results) || [], onResultClick: handleResultClick }, void 0, false, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(CardList, { results: data?.results || [], onResultClick: handleResultClick }, void 0, false, {
           fileName: "app-next/page.tsx",
           lineNumber: 121,
           columnNumber: 15
@@ -955,4 +955,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   page_default2 as page_default
 };
-//# sourceMappingURL=/build/_shared/chunk-7TVCQQYT.js.map
+//# sourceMappingURL=/build/_shared/chunk-6GLVL545.js.map

@@ -13,7 +13,7 @@
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,md}'",
     "format:fix": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,md}'",
-    "prepare": "echo 'Skipping husky setup'",
+   "prepare": "echo 'Skipping husky setup'",
     "test": "vitest run --coverage",
     "lint-staged": "lint-staged",
     "build:css": "sass ./app/index.scss ./app/index.css"
@@ -29,6 +29,7 @@
     "@remix-run/node": "^2.11.1",
     "@remix-run/react": "^2.11.1",
     "@remix-run/serve": "^2.11.1",
+    "autoprefixer": "^10.4.20",
     "esbuild": "^0.23.0",
     "esbuild-sass-plugin": "^3.3.1",
     "isbot": "^5.1.14",
