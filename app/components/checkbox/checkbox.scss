@@ -1,0 +1,62 @@
+@import '../variables';
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: -8px;
+
+    &.light {
+        .checkbox-input:checked + .checkbox-label::before {
+            background-color: $black-text;
+            border: 1px solid $black-text;
+        }
+      }
+      &.dark {
+        .checkbox-input:checked + .checkbox-label::before {
+            background-color: $white-color;
+            border: 1px solid $white-color;
+        }
+      }
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Roboto Regular', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 130%;
+    letter-spacing: 0.02em;
+    position: relative;
+}
+
+.checkbox-input {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkbox-label {
+    position: relative;
+    padding-left: 24px;
+    cursor: pointer;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 12px; 
+        height: 12px; 
+        background-color: transparent;
+        border: 1px solid $grey-color;
+        border-radius: 0px;
+        position: absolute;
+        left: 0; 
+        top: 50%;
+        transform: translateY(-50%);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    &:hover::before {
+        border-color: $grey-text; 
+    }
+}

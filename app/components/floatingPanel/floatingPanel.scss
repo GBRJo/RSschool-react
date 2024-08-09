@@ -1,0 +1,28 @@
+@import '@components/variables';
+.floating-panel {
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    z-index: 1000;
+    p {
+padding-right: 16px;
+    }
+    &.light {
+      background-color: $black-text;
+      color: $white-color;
+    }
+    &.dark {
+      background-color: $white-color; 
+      color:  $black-text; 
+    }
+
+    button {
+      color: inherit;
+      padding: 8px 16px;
+     
+    }
+  }
