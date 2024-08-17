@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
