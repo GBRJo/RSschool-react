@@ -46,7 +46,7 @@ export const ControlledRegistrationForm: React.FC = () => {
   });
 
   const onSubmit = (data: IFormInputs) => {
-    const file = data.image; // Предполагается, что это всегда File
+    const file = data.image;
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -58,12 +58,12 @@ export const ControlledRegistrationForm: React.FC = () => {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
-          image: base64Image, // Отправляем изображение в формате Base64
+          image: base64Image,
           termsAccepted: data.termsAccepted,
           gender: data.gender,
           country: data.country,
         };
-        dispatch(addFormData(formData)); // Добавляем данные в Redux
+        dispatch(addFormData(formData));
         navigate('/');
       }
     };
@@ -116,9 +116,9 @@ export const ControlledRegistrationForm: React.FC = () => {
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
                 showPassword={true}
-                togglePasswordVisibility={() => {}}
                 error={errors.password?.message}
                 disabled={false}
+                type={''}
               />
             )}
           />
@@ -135,9 +135,9 @@ export const ControlledRegistrationForm: React.FC = () => {
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
                 showPassword={true}
-                togglePasswordVisibility={() => {}}
                 error={errors.confirmPassword?.message}
                 disabled={false}
+                type={''}
               />
             )}
           />
@@ -160,6 +160,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 onChange={(e) => field.onChange(e.target.value)}
                 error={errors.name?.message}
                 disabled={false}
+                type={''}
               />
             )}
           />
@@ -225,6 +226,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 onChange={(e) => field.onChange(e.target.value)}
                 options={countries}
                 error={errors.country?.message}
+                type={''}
               />
             )}
           />
@@ -246,8 +248,8 @@ export const ControlledRegistrationForm: React.FC = () => {
           </div>
         </div>
         <div className="login-buttons">
-          <LargeButton disabled={!isValid} disabledText="Register">
-            Register
+          <LargeButton disabled={!isValid} disabledText="Disabled submit">
+            Submit
           </LargeButton>
         </div>
       </div>

@@ -1,34 +1,52 @@
-import React, { FC } from 'react';
+import {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  ChangeEvent,
+  ForwardedRef,
+} from 'react';
 import { ICheckboxProps } from './ICheckboxProps';
 
-export const Checkbox: FC<ICheckboxProps> = ({
-  id,
-  label,
-  checked,
-  onChange,
-  disabled,
-  error,
-}) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.checked);
-  };
+export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>(
+  function Checkbox(
+    {
+      id,
+      label,
+      checked, // Значение не по умолчанию, так как это может быть неконтролируемый компонент
+      onChange,
+      disabled = false,
+      error,
+    },
+    ref: ForwardedRef<HTMLInputElement>,
+  ) {
+    const inputRef = useRef<HTMLInputElement>(null);
 
-  return (
-    <div className="checkbox">
-      <div className="checkbox-container">
-        <input
-          type="checkbox"
-          checked={checked}
-          disabled={disabled}
-          onChange={handleChange}
-          className="checkbox-input"
-          id={id}
-        />
-        <label htmlFor={id} className="checkbox-label">
-          {label}
-        </label>
+    useImperativeHandle(ref, () => inputRef.current!);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      if (onChange) {
+        onChange(event.target.checked);
+      }
+    };
+
+    return (
+      <div className="checkbox">
+        <div className="checkbox-container">
+          <input
+            type="checkbox"
+            id={id}
+            checked={checked} // Проверка на существование пропса checked
+            disabled={disabled}
+            onChange={handleChange}
+            ref={inputRef}
+            className="checkbox-input"
+          />
+          <label htmlFor={id} className="checkbox-label">
+            {label}
+          </label>
+        </div>
+        {error && <div className="error">{error}</div>}
       </div>
-      {error && <div className="error">{error}</div>}
-    </div>
-  );
-};
+    );
+  },
+);

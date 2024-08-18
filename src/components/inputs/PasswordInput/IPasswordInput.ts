@@ -1,13 +1,12 @@
 import { IInputBase } from '../InputBase/IInputBase';
 
 export interface IPasswordInput extends IInputBase {
-  showPassword: boolean;
-  togglePasswordVisibility: () => void;
+  showPassword?: boolean;
   oldPassword?: string;
   newPassword?: string;
-  onOldPasswordChange?: () => void;
-  onNewPasswordChange?: () => void;
+  onOldPasswordChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onNewPasswordChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   newPasswordError?: string;
   showNewPassword?: boolean;
-  toggleNewPasswordVisibility?: () => void;
+  editMode?: boolean;
 }

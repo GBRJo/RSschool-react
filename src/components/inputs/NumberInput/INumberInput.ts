@@ -1,9 +1,15 @@
-import { IInputBase } from '../InputBase/IInputBase';
+import { ChangeEvent } from 'react';
 
-export interface INumberInputProps extends IInputBase {
+export interface INumberInputProps {
   min?: number;
   max?: number;
   step?: number;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  value: number;
+  label?: string;
+  placeholder?: string;
+  value?: number;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  id?: string;
+  name?: string;
+  error?: string;
+  defaultValue?: number;
 }
