@@ -4,19 +4,6 @@
     align-items: center;
     gap: 4px;
     margin-top: -8px;
-
-    &.light {
-        .checkbox-input:checked + .checkbox-label::before {
-            background-color: $black-text;
-            border: 1px solid $black-text;
-        }
-      }
-      &.dark {
-        .checkbox-input:checked + .checkbox-label::before {
-            background-color: $white-color;
-            border: 1px solid $white-color;
-        }
-      }
 }
 
 .checkbox-label {
@@ -28,6 +15,7 @@
     font-size: 11px;
     line-height: 130%;
     letter-spacing: 0.02em;
+    color: $grey-text;
     position: relative;
 }
 
@@ -38,7 +26,7 @@
 
 .checkbox-label {
     position: relative;
-    padding-left: 24px;
+    padding-left: 24px; // Общий размер блока + маргин, чтобы текст не перекрывался
     cursor: pointer;
 
     &::before {
@@ -46,7 +34,7 @@
         display: block;
         width: 12px; 
         height: 12px; 
-        background-color: transparent;
+        background-color: $white-color;
         border: 1px solid $grey-color;
         border-radius: 0px;
         position: absolute;
@@ -57,6 +45,28 @@
     }
 
     &:hover::before {
-        border-color: $grey-text; 
+        border-color: $black-text; 
     }
 }
+
+.checkbox-input:checked + .checkbox-label::before {
+    background-color: $green-color;
+    border: 1px solid $green-color;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.error {
+    margin-left: 16px;
+    margin-top: 8px;
+    font-family: 'Roboto Regular', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: -0.225px;
+    color: $red-text;
+  }

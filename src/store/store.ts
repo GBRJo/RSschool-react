@@ -1,17 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { api } from '@services/fetch/api';
-import selectedPeopleReducer from './selectedPeopleSlice';
-import activeCardReducer from './activeCardSlice';
+import formReducer from './formSlice';
+import countriesReducer from './countriesSlice';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    activeCard: activeCardReducer,
-    selectedPeople: selectedPeopleReducer,
-    [api.reducerPath]: api.reducer,
+    form: formReducer,
+    countries: countriesReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export default store;

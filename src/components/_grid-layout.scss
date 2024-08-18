@@ -1,7 +1,7 @@
 @mixin grid-layout {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     column-gap: 48px;
     row-gap: 16px;
     width: 100%;

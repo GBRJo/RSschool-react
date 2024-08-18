@@ -10,10 +10,11 @@
 @import '@components/reset';
 
 // Import of global components
-@import '@components/input/inputs.scss';
-@import '@components/button/button.scss';
+@import '@components/inputs/inputs.scss';
+@import '@components/buttons/buttons.scss';
 @import '@components/pagination/pagination.scss';
 @import '@components/checkbox/checkbox';
+@import '@components/radioButton/radioButton.scss';
 
 body {
   display: flex;
@@ -21,6 +22,7 @@ body {
   min-height: 100vh;
   font-size: 16px;
   overflow-x: hidden;
+  background-color: $white-color;
 }
 
 h1 {
@@ -92,8 +94,22 @@ span {
 
 #root {
   width: 100%;
-  margin: 0 auto;
+  margin: auto;
+ max-width: 1200px;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.address-container {
  
+  .fields-container {
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
 }
 
 @media (max-width: 1024px) {

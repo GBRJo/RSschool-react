@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './store/store.ts';
+// import { store } from './store/store.ts';
 import { HookForm } from './pages/hookForm/HookForm.tsx';
 import { Main } from './pages/main/Main.tsx';
 import { UncontrolledForm } from './pages/uncontrolledForm/UncontrolledForm.tsx';
+import store from '@store/store.ts';
 
 const router = createBrowserRouter([
   {

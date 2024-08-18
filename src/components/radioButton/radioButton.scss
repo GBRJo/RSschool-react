@@ -1,0 +1,90 @@
+@import '../variables';
+
+// Основной стиль для радиокнопок
+.gender-selection{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+.radio-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Roboto Regular', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 130%;
+  letter-spacing: 0.02em;
+  color: $grey-text;
+  position: relative;
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-left: 24px;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 12px; 
+      height: 12px; // Размер радиокнопки
+      background-color: $white-color; // Цвет фона радиокнопки
+      border: 1px solid $grey-color; // Цвет границы радиокнопки
+      border-radius: 50%; // Радиус для круглой формы
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    &:hover::before {
+      border-color: $black-text; // Цвет границы при наведении
+    }
+  }
+
+  .radio-input {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+
+    &:checked + .radio-label::before {
+      background-color: $green-color;
+      border: 1px solid $green-color; 
+
+      &::after {
+        content: '';
+        display: block;
+        width: 8px; // Размер внутреннего круга
+        height: 8px; // Размер внутреннего круга
+        border-radius: 50%;
+        background-color: $white-color; // Цвет внутреннего круга
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &:disabled + .radio-label::before {
+      background-color: $white-color; 
+      border-color: $white-color;
+      cursor: not-allowed;
+    }
+  }
+
+  .error {
+    margin-left: 24px; // Отступ для выравнивания с меткой
+    margin-top: 8px;
+    font-family: 'Roboto Regular', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: -0.225px;
+    color: $red-text; // Цвет текста ошибки
+  }
+}
