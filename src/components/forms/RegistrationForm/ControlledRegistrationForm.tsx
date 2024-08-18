@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createSchema } from '../../../validationSchema';
-
 import { EmailInput } from '../../inputs/EmailInput/EmailInput';
 import { PasswordInput } from '../../inputs/PasswordInput/PasswordInput';
 import { LargeButton } from '@components/buttons/LargeButton/LargeButton';
@@ -10,17 +9,7 @@ import { ImageUpload } from '@components/inputs/ImageInput/ImageInput'; // Пр�
 import { NumberInput } from '@components/inputs/NumberInput/NumberInput';
 import { TextInput } from '@components/inputs/TextInput/TextInput';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setAge,
-  setConfirmPassword,
-  setCountry,
-  setEmail,
-  setGender,
-  setImage,
-  setName,
-  setPassword,
-  setTermsAccepted,
-} from '@store/formSlice';
+import { addFormData } from '@store/formSlice';
 import { Checkbox } from '@components/checkbox/Checkbox';
 import { RadioButton } from '@components/radioButton/RadioButton';
 import { ListInput } from '@components/inputs/ListInput/ListInput';
@@ -46,7 +35,6 @@ export const ControlledRegistrationForm: React.FC = () => {
     (state: RootState) => state.countries.countries,
   );
 
-  // Создаем схему валидации с использованием списка стран
   const schema = createSchema(countries);
   const {
     control,
@@ -58,27 +46,28 @@ export const ControlledRegistrationForm: React.FC = () => {
   });
 
   const onSubmit = (data: IFormInputs) => {
-    dispatch(setName(data.name));
-    dispatch(setAge(data.age));
-    dispatch(setEmail(data.email));
-    dispatch(setPassword(data.password));
-    dispatch(setConfirmPassword(data.confirmPassword));
-    dispatch(setTermsAccepted(data.termsAccepted));
-    dispatch(setGender(data.gender));
-    dispatch(setCountry(data.country));
+    const file = data.image; // Предполагается, что это всегда File
 
-    if (data.image) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          const base64Image = reader.result as string;
-          dispatch(setImage(base64Image));
-        }
-      };
-      reader.readAsDataURL(data.image);
-    }
-
-    navigate('/');
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.result) {
+        const base64Image = reader.result as string;
+        const formData = {
+          name: data.name,
+          age: data.age,
+          email: data.email,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+          image: base64Image, // Отправляем изображение в формате Base64
+          termsAccepted: data.termsAccepted,
+          gender: data.gender,
+          country: data.country,
+        };
+        dispatch(addFormData(formData)); // Добавляем данные в Redux
+        navigate('/');
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -91,7 +80,7 @@ export const ControlledRegistrationForm: React.FC = () => {
           render={({ field }) => (
             <ImageUpload
               label="Photo"
-              onChange={(file) => field.onChange(file)}
+              onChange={(files) => field.onChange(files)}
               error={errors.image?.message}
             />
           )}
@@ -108,7 +97,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 name="email"
                 placeholder="Enter your email"
                 value={field.value}
-                onChange={(e) => field.onChange(e)}
+                onChange={(e) => field.onChange(e.target.value)}
                 error={errors.email?.message}
                 disabled={false}
               />
@@ -125,7 +114,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 name="password"
                 placeholder="Enter your password"
                 value={field.value}
-                onChange={(e) => field.onChange(e)}
+                onChange={(e) => field.onChange(e.target.value)}
                 showPassword={true}
                 togglePasswordVisibility={() => {}}
                 error={errors.password?.message}
@@ -144,7 +133,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 name="confirmPassword"
                 placeholder="Confirm your password"
                 value={field.value}
-                onChange={(e) => field.onChange(e)}
+                onChange={(e) => field.onChange(e.target.value)}
                 showPassword={true}
                 togglePasswordVisibility={() => {}}
                 error={errors.confirmPassword?.message}
@@ -168,7 +157,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 name="name"
                 placeholder="Enter your name"
                 value={field.value}
-                onChange={field.onChange}
+                onChange={(e) => field.onChange(e.target.value)}
                 error={errors.name?.message}
                 disabled={false}
               />
@@ -185,7 +174,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 name="age"
                 placeholder="Enter your age"
                 value={field.value}
-                onChange={field.onChange}
+                onChange={(e) => field.onChange(Number(e.target.value))} // Исправлено: Преобразуем значение в число
                 error={errors.age?.message}
                 min={1}
                 max={100}
@@ -193,6 +182,7 @@ export const ControlledRegistrationForm: React.FC = () => {
               />
             )}
           />
+
           <Controller
             name="gender"
             control={control}
@@ -204,7 +194,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                   value="male"
                   label="Male"
                   checked={field.value === 'male'}
-                  onChange={field.onChange}
+                  onChange={() => field.onChange('male')}
                   error={errors.gender?.message}
                 />
                 <RadioButton
@@ -213,7 +203,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                   value="female"
                   label="Female"
                   checked={field.value === 'female'}
-                  onChange={field.onChange}
+                  onChange={() => field.onChange('female')}
                   error={errors.gender?.message}
                 />
               </div>
@@ -247,7 +237,7 @@ export const ControlledRegistrationForm: React.FC = () => {
                 <Checkbox
                   id="terms-conditions"
                   checked={field.value}
-                  onChange={field.onChange}
+                  onChange={() => field.onChange(!field.value)}
                   label="I accept the Terms and Conditions"
                   error={errors.termsAccepted?.message}
                 />

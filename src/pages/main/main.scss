@@ -2,27 +2,40 @@
 @import '@components/grid-layout';
 
 .app {
+ 
+  padding: 0 48px;
+  row-gap: 16px;
+  height: 100%;
+  margin: auto;
+  max-width: 1200px;
+  h1 {
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+}
+
+.card-container {
   @include grid-layout;
-  grid-template-rows: auto 1fr;
-  padding: 2rem 4rem;
+  grid-column: 1/span 4;
+ 
+  height: 100%;
+  margin: auto;
+}
 
-  &.light {
-    background-color: $white-color;
-    color: $black-text;
+.detailed-card {
+  border: 1px solid $grey-color;
+  padding: 16px 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 
-    .icon-invert {
-      filter: invert(0); 
-    }
-  }
+}
 
-  &.dark {
-    background-color: $black-text;
-    color: $white-color;
 
-    .icon-invert {
-      filter: invert(1);
-    }
-  }
+.detailed-card.highlighted-card {
+  border-color: $black-text;
 }
 
 .app-header {
@@ -97,9 +110,7 @@
 }
 
 .detailed-card {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 48px;
+   
     img {
         grid-column: 1 / span 2;
         width: 100%;

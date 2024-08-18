@@ -1,31 +1,39 @@
-import { Person } from '../ICardProps';
-export interface DetailedCardProps {
-  person: Person;
+import React from 'react';
+
+interface DetailedCardProps {
+  name: string;
+  age: number;
+  email: string;
+  country: string | null;
+  gender: string | null;
+  image: string | null;
+  isLast: boolean;
 }
 
-const getIdFromUrl = (url: string): string => {
-  const parts = url.split('/');
-  return parts[parts.length - 2];
-};
-
-export const DetailedCard: React.FC<DetailedCardProps> = ({ person }) => {
-  const personId = getIdFromUrl(person.url);
-
-  const imageUrl = `https://starwars-visualguide.com/assets/img/characters/${personId}.jpg`;
-
+export const DetailedCard: React.FC<DetailedCardProps> = ({
+  name,
+  age,
+  email,
+  country,
+  gender,
+  image,
+  isLast,
+}) => {
   return (
-    <div className="detailed-card">
-      <img src={imageUrl} alt={person.name} />
-
+    <div className={`detailed-card ${isLast ? 'highlighted-card' : ''}`}>
+      {image && (
+        <img
+          src={image}
+          alt={name}
+          style={{ width: '100px', height: '100px' }}
+        />
+      )}
       <div className="detailed-text">
-        <h3>{person.name}</h3>
-        <p>Height: {person.height} cm</p>
-        <p>Mass: {person.mass} kg</p>
-        <p>Hair Color: {person.hair_color}</p>
-        <p>Skin Color: {person.skin_color}</p>
-        <p>Eye Color: {person.eye_color}</p>
-        <p>Birth Year: {person.birth_year}</p>
-        <p>Gender: {person.gender}</p>
+        <h3>{name}</h3>
+        <p>Age: {age}</p>
+        <p>Email: {email}</p>
+        <p>Country: {country || 'N/A'}</p>
+        <p>Gender: {gender || 'N/A'}</p>
       </div>
     </div>
   );

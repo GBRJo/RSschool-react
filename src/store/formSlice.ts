@@ -14,63 +14,34 @@ interface FormState {
   country: string | null;
 }
 
-const initialState: FormState = {
-  name: '',
-  age: 18,
-  email: '',
-  password: '',
-  confirmPassword: '',
-  image: null,
-  termsAccepted: false,
-  gender: null,
-  country: null,
+interface FormSliceState {
+  data: FormState[];
+}
+
+const initialState: FormSliceState = {
+  data: [],
 };
 
 const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    setName(state, action: PayloadAction<string>) {
-      state.name = action.payload;
+    addFormData(state, action: PayloadAction<FormState>) {
+      state.data.push(action.payload); // Добавляем новые данные
     },
-    setAge(state, action: PayloadAction<number>) {
-      state.age = action.payload;
-    },
-    setEmail(state, action: PayloadAction<string>) {
-      state.email = action.payload;
-    },
-    setPassword(state, action: PayloadAction<string>) {
-      state.password = action.payload;
-    },
-    setConfirmPassword(state, action: PayloadAction<string>) {
-      state.confirmPassword = action.payload;
-    },
-    setImage(state, action: PayloadAction<string | null>) {
-      state.image = action.payload;
-    },
-    setTermsAccepted(state, action: PayloadAction<boolean>) {
-      state.termsAccepted = action.payload;
-    },
-    setGender(state, action: PayloadAction<'male' | 'female' | null>) {
-      state.gender = action.payload;
-    },
-    setCountry(state, action: PayloadAction<string | null>) {
-      state.country = action.payload;
+    updateFormData(
+      state,
+      action: PayloadAction<{ index: number; newData: Partial<FormState> }>,
+    ) {
+      const { index, newData } = action.payload;
+      if (state.data[index]) {
+        state.data[index] = { ...state.data[index], ...newData }; // Обновляем данные по индексу
+      }
     },
   },
 });
 
-export const {
-  setName,
-  setAge,
-  setEmail,
-  setPassword,
-  setConfirmPassword,
-  setImage,
-  setTermsAccepted,
-  setGender,
-  setCountry,
-} = formSlice.actions;
+export const { addFormData, updateFormData } = formSlice.actions;
 
 export type { FormState };
 export default formSlice.reducer;

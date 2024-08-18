@@ -1,473 +1,177 @@
-import React, { useRef } from 'react';
-
+// import React, { useRef } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { addFormData } from '@store/formSlice';
+// import { LargeButton } from '@components/buttons/LargeButton/LargeButton';
+// import { Checkbox } from '@components/checkbox/Checkbox';
+// import { EmailInput } from '@components/inputs/EmailInput/EmailInput';
 // import { ImageUpload } from '@components/inputs/ImageInput/ImageInput';
+// import { ListInput } from '@components/inputs/ListInput/ListInput';
+// import { NumberInput } from '@components/inputs/NumberInput/NumberInput';
+// import { PasswordInput } from '@components/inputs/PasswordInput/PasswordInput';
+// import { TextInput } from '@components/inputs/TextInput/TextInput';
+// import { RadioButton } from '@components/radioButton/RadioButton';
 
-export const UncontrolledRegistrationForm: React.FC = () => {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const dateOfBirthRef = useRef<HTMLInputElement>(null);
-  const countryRef = useRef<HTMLInputElement>(null);
-  const cityRef = useRef<HTMLInputElement>(null);
-  const streetRef = useRef<HTMLInputElement>(null);
-  const postCodeRef = useRef<HTMLInputElement>(null);
-  const countryBillingRef = useRef<HTMLInputElement>(null);
-  const cityBillingRef = useRef<HTMLInputElement>(null);
-  const streetBillingRef = useRef<HTMLInputElement>(null);
-  const postCodeBillingRef = useRef<HTMLInputElement>(null);
-  const isDefaultShippingAddressRef = useRef<HTMLInputElement>(null);
-  const isSameAddressesRef = useRef<HTMLInputElement>(null);
-  const isDefaultBillingAddressRef = useRef<HTMLInputElement>(null);
-  // const genderRef = useRef<HTMLSelectElement>(null);
+// interface IFormInputs {
+//   name: string;
+//   age: number;
+//   email: string;
+//   password: string;
+//   confirmPassword: string;
+//   image: File;
+//   termsAccepted: boolean;
+//   gender: 'male' | 'female';
+//   country: string;
+// }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+// export const UncontrolledRegistrationForm: React.FC = () => {
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
 
-    const userData = {
-      email: emailRef.current?.value ?? '',
-      password: passwordRef.current?.value ?? '',
-      firstName: firstNameRef.current?.value ?? '',
-      lastName: lastNameRef.current?.value ?? '',
-      dateOfBirth: dateOfBirthRef.current?.value ?? '',
-      addresses: [
-        {
-          country: countryRef.current?.value ?? '',
-          city: cityRef.current?.value ?? '',
-          streetName: streetRef.current?.value ?? '',
-          postalCode: postCodeRef.current?.value ?? '',
-        },
-        {
-          country: countryBillingRef.current?.value ?? '',
-          city: cityBillingRef.current?.value ?? '',
-          streetName: streetBillingRef.current?.value ?? '',
-          postalCode: postCodeBillingRef.current?.value ?? '',
-        },
-      ],
-      shippingAddresses: [0],
-      billingAddresses: isSameAddressesRef.current?.checked ? [0] : [1],
-      defaultShippingAddress: isDefaultShippingAddressRef.current?.checked
-        ? 0
-        : undefined,
-      defaultBillingAddress: isDefaultBillingAddressRef.current?.checked
-        ? isSameAddressesRef.current?.checked
-          ? 0
-          : 1
-        : undefined,
-    };
+//   const nameRef = useRef<HTMLInputElement>(null);
+//   const ageRef = useRef<HTMLInputElement>(null);
+//   const emailRef = useRef<HTMLInputElement>(null);
+//   const passwordRef = useRef<HTMLInputElement>(null);
+//   const confirmPasswordRef = useRef<HTMLInputElement>(null);
+//   const imageRef = useRef<HTMLInputElement>(null);
+//   const genderRef = useRef<HTMLInputElement>(null);
+//   const countryRef = useRef<HTMLSelectElement>(null);
+//   const termsAcceptedRef = useRef<HTMLInputElement>(null);
 
-    if (isSameAddressesRef.current?.checked) userData.addresses.pop();
+//   const onSubmit = (event: React.FormEvent) => {
+//     event.preventDefault();
 
-    console.log('User Data:', userData);
-  };
+//     if (
+//       nameRef.current &&
+//       ageRef.current &&
+//       emailRef.current &&
+//       passwordRef.current &&
+//       confirmPasswordRef.current &&
+//       imageRef.current &&
+//       genderRef.current &&
+//       countryRef.current &&
+//       termsAcceptedRef.current
+//     ) {
+//       const formData: IFormInputs = {
+//         name: nameRef.current.value,
+//         age: parseInt(ageRef.current.value, 10),
+//         email: emailRef.current.value,
+//         password: passwordRef.current.value,
+//         confirmPassword: confirmPasswordRef.current.value,
+//         image: imageRef.current.files![0],
+//         termsAccepted: termsAcceptedRef.current.checked,
+//         gender: genderRef.current.value as 'male' | 'female',
+//         country: countryRef.current.value,
+//       };
 
-  return (
-    <form onSubmit={handleSubmit} className="registration-form">
-      <div className="user-container">
-        <span>Choose a photo</span>
-        {/* <ImageUpload label="Photo" onChange={function (file: File | null): void {
-          throw new Error('Function not implemented.');
-        } } /> */}
+//       const reader = new FileReader();
+//       reader.onloadend = () => {
+//         if (reader.result) {
+//           const base64Image = reader.result as string;
+//           dispatch(
+//             addFormData({
+//               ...formData,
+//               image: base64Image,
+//             }),
+//           );
+//           navigate('/');
+//         }
+//       };
+//       reader.readAsDataURL(formData.image);
+//     }
+//   };
 
-        <span>Enter Your Email and Password</span>
-        <div className="fields-container">
-          <input type="email" ref={emailRef} placeholder="Email" />
-          <input type="password" ref={passwordRef} placeholder="Password" />
+//   return (
+//     <form onSubmit={onSubmit} className="registration-form">
+//       <div className="user-container">
+//         <span>Choose a photo</span>
+//         <ImageUpload label="Photo" ref={imageRef} />
+
+//         <span>Enter Your Email and Password</span>
+{
+  /* <div className="fields-container">
+          <EmailInput
+            label="Email"
+            name="email"
+            placeholder="Enter your email"
+            ref={emailRef}
+          />
+          <PasswordInput
+            label="Password"
+            name="password"
+            placeholder="Enter your password"
+            ref={passwordRef}
+            showPassword={true}
+            togglePasswordVisibility={() => {}}
+          />
+          <PasswordInput
+            label="Confirm Password"
+            name="confirmPassword"
+            placeholder="Confirm your password"
+            ref={confirmPasswordRef}
+            showPassword={true}
+            togglePasswordVisibility={() => {}}
+          />
         </div>
       </div>
 
       <div className="address-container">
-        <span>Provide Your Name and Date of Birth</span>
+        <span>Provide Your Name and Age</span>
         <div className="fields-container">
-          <input type="text" ref={firstNameRef} placeholder="First Name" />
-          <input type="text" ref={lastNameRef} placeholder="Last Name" />
-          <input type="date" ref={dateOfBirthRef} />
+          <TextInput
+            label="Name"
+            name="name"
+            placeholder="Enter your name"
+            ref={nameRef}
+          />
+          <NumberInput
+            label="Age"
+            name="age"
+            placeholder="Enter your age"
+            ref={ageRef}
+            min={1}
+            max={100}
+            step={1}
+          />
+          <div className="gender-selection">
+            <RadioButton
+              id="male"
+              name="gender"
+              value="male"
+              label="Male"
+              ref={genderRef}
+            />
+            <RadioButton
+              id="female"
+              name="gender"
+              value="female"
+              label="Female"
+              ref={genderRef}
+            />
+          </div>
         </div>
 
-        <span>Shipping address</span>
+        <span>Select your country</span>
         <div className="fields-container">
-          <input type="text" ref={countryRef} placeholder="Country" />
-          <input type="text" ref={cityRef} placeholder="City" />
-          <input type="text" ref={streetRef} placeholder="Street" />
-          <input type="text" ref={postCodeRef} placeholder="Post Code" />
-        </div>
+          <ListInput
+            label="Country"
+            name="country"
+            placeholder="Select your country"
+            ref={countryRef}
+          />
 
-        {/* 
-        <div className="gender-radio-group">
-          <label>
-            <input type="radio" value="male" name="gender" ref={genderRef} />{' '}
-            Male
-          </label>
-          <label>
-            <input type="radio" value="female" name="gender" ref={genderRef} />{' '}
-            Female
-          </label>
-        </div> */}
-
-        <label>
-          <input type="checkbox" ref={isDefaultShippingAddressRef} /> Set as
-          default shipping address
-        </label>
-
-        <label>
-          <input type="checkbox" ref={isSameAddressesRef} /> Use same address
-          for billing
-        </label>
-
-        <label>
-          <input type="checkbox" ref={isDefaultBillingAddressRef} /> Set as
-          default billing address
-        </label>
-
-        <button type="submit">Register</button>
-      </div>
-    </form>
-  );
-};
-
-// export const RegistrationForm: React.FC = () => {
-//   const [state, setState] = useState<IRegistrationForm>({
-//     email: '',
-//     emailError: '',
-//     password: '',
-//     passwordError: '',
-//     showPassword: false,
-//     country: '',
-//     countryError: '',
-//     city: '',
-//     cityError: '',
-//     street: '',
-//     streetError: '',
-//     postCode: '',
-//     postCodeError: '',
-//     countryBilling: '',
-//     countryErrorBilling: '',
-//     cityBilling: '',
-//     cityErrorBilling: '',
-//     streetBilling: '',
-//     streetErrorBilling: '',
-//     postCodeBilling: '',
-//     postCodeErrorBilling: '',
-//     firstName: '',
-//     firstNameError: '',
-//     dateOfBirth: '',
-//     dateOfBirthError: '',
-//     lastName: '',
-//     lastNameError: '',
-//     isDefaultShippingAddress: false,
-//     isSameAddresses: false,
-//     isDefaultBillingAddress: false,
-//   });
-//   const [selectedGender, setSelectedGender] = React.useState<string>('');
-
-//   // const navigate = useNavigate();
-
-//   const isButtonDisabled =
-//     state.email === '' ||
-//     state.password === '' ||
-//     state.emailError !== '' ||
-//     state.passwordError !== '' ||
-//     state.country === '' ||
-//     state.countryError !== '' ||
-//     state.city === '' ||
-//     state.cityError !== '' ||
-//     state.street === '' ||
-//     state.streetError !== '' ||
-//     state.postCode === '' ||
-//     state.postCodeError !== '' ||
-//     state.firstName === '' ||
-//     state.firstNameError !== '' ||
-//     state.lastName === '' ||
-//     state.lastNameError !== '' ||
-//     state.dateOfBirth === '' ||
-//     state.dateOfBirthError !== '' ||
-//     state.countryBilling === '' ||
-//     state.countryErrorBilling !== '' ||
-//     state.cityBilling === '' ||
-//     state.cityErrorBilling !== '' ||
-//     state.streetBilling === '' ||
-//     state.streetErrorBilling !== '' ||
-//     state.postCodeBilling === '' ||
-//     state.postCodeErrorBilling !== '';
-
-//   const togglePasswordVisibility = () => {
-//     setState((prevState) => ({
-//       ...prevState,
-//       showPassword: !prevState.showPassword,
-//     }));
-//   };
-
-//   const handleGenderChange = (value: string) => {
-//     setSelectedGender(value);
-//   };
-
-//   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void => {
-//     const newEmail = event.target.value.trim();
-//     const emailError = validateEmail(newEmail);
-//     setState((prevState) => ({ ...prevState, email: newEmail, emailError }));
-//   };
-
-//   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
-//     const newPassword = event.target.value.trim();
-//     const passwordError = validatePassword(newPassword);
-//     setState((prevState) => ({
-//       ...prevState,
-//       password: newPassword,
-//       passwordError,
-//     }));
-//   };
-
-//   const handleCountryChange = (
-//     event: ChangeEvent<HTMLInputElement>,
-//     targetCountry: string,
-//     targetCountryError: string,
-//   ): void => {
-//     const newCountry = event.target.value;
-//     const countryError = validateCountry(newCountry);
-//     setState((prevState) => ({
-//       ...prevState,
-//       [targetCountry]: newCountry,
-//       [targetCountryError]: countryError,
-//     }));
-//   };
-
-//   const handleCityChange = (
-//     event: ChangeEvent<HTMLInputElement>,
-//     targetCity: string,
-//     targetCityError: string,
-//   ): void => {
-//     const newCity = event.target.value;
-//     const cityError = validateCity(newCity);
-//     setState((prevState) => ({
-//       ...prevState,
-//       [targetCity]: newCity,
-//       [targetCityError]: cityError,
-//     }));
-//   };
-
-//   const handleStreetChange = (
-//     event: ChangeEvent<HTMLInputElement>,
-//     targetStreet: string,
-//     targetStreetError: string,
-//   ): void => {
-//     const newStreet = event.target.value;
-//     const streetError = validateStreet(newStreet);
-//     setState((prevState) => ({
-//       ...prevState,
-//       [targetStreet]: newStreet,
-//       [targetStreetError]: streetError,
-//     }));
-//   };
-
-//   const handlePostCodeChange = (
-//     event: ChangeEvent<HTMLInputElement>,
-//     targetPostCode: string,
-//     targetPostCodeError: string,
-//   ): void => {
-//     const newPostCode = event.target.value;
-//     const postCodeError = validatePostCode(newPostCode);
-//     setState((prevState) => ({
-//       ...prevState,
-//       [targetPostCode]: newPostCode,
-//       [targetPostCodeError]: postCodeError,
-//     }));
-//   };
-
-//   const handleFirstNameChange = (
-//     event: ChangeEvent<HTMLInputElement>,
-//   ): void => {
-//     const newFirstName = event.target.value.trim();
-//     const firstNameError = validateName(newFirstName);
-//     setState((prevState) => ({
-//       ...prevState,
-//       firstName: newFirstName,
-//       firstNameError,
-//     }));
-//   };
-
-//   const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-//     const newLastName = event.target.value.trim();
-//     const lastNameError = validateName(newLastName);
-//     setState((prevState) => ({
-//       ...prevState,
-//       lastName: newLastName,
-//       lastNameError,
-//     }));
-//   };
-
-//   const handleDateOfBirth = (event: ChangeEvent<HTMLInputElement>): void => {
-//     const newDateOfBirth = event.target.value;
-//     const dateOfBirthError = validateDateOfBirth(newDateOfBirth);
-//     setState((prevState) => ({
-//       ...prevState,
-//       dateOfBirth: newDateOfBirth,
-//       dateOfBirthError,
-//     }));
-//   };
-
-//   const handleCheckboxChangeDefaultShippingAddress = (checked: boolean) => {
-//     setState({
-//       ...state,
-//       isDefaultShippingAddress: checked,
-//     });
-//   };
-
-//   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-//     event.preventDefault();
-
-//     const {
-//       email,
-//       password,
-//       city,
-//       street,
-//       postCode,
-//       firstName,
-//       lastName,
-//       dateOfBirth,
-//       cityBilling,
-//       streetBilling,
-//       postCodeBilling,
-//       isDefaultShippingAddress,
-//       isSameAddresses,
-//       isDefaultBillingAddress,
-//     } = state;
-
-//     const userData = {
-//       email,
-//       firstName,
-//       lastName,
-//       password,
-//       dateOfBirth,
-//       addresses: [
-//         {
-//           country: 'US',
-//           city,
-//           streetName: street,
-//           postalCode: postCode,
-//         },
-//         {
-//           country: 'US',
-//           city: cityBilling,
-//           streetName: streetBilling,
-//           postalCode: postCodeBilling,
-//         },
-//       ],
-//       shippingAddresses: [0],
-//       billingAddresses: isSameAddresses ? [0] : [1],
-//       defaultShippingAddress: isDefaultShippingAddress ? 0 : undefined,
-//       defaultBillingAddress: isDefaultBillingAddress
-//         ? isSameAddresses
-//           ? 0
-//           : 1
-//         : undefined,
-//     };
-
-//     if (isSameAddresses) userData.addresses.pop();
-
-//     // Instead of sending data to the server, we log it to the console
-//     console.log('User Data:', userData);
-
-//     // The rest of the original code for registration can be re-added later if needed.
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} className="registration-form">
-//       <div className="user-container">
-//         <span>Choose a photo</span>
-//         <ImageUpload
-//           label="Photo"
-//           placeholder={'Choose a photo'}
-
-//           //  error={emailError}
-//         />
-
-//         <span>Enter Your Email and Password</span>
-//         <div className="fields-container">
-//           <EmailAndPasswordFields
-//             email={state.email}
-//             emailError={state.emailError}
-//             onEmailChange={handleEmailChange}
-//             password={state.password}
-//             passwordError={state.passwordError}
-//             onPasswordChange={handlePasswordChange}
-//             showPassword={state.showPassword}
-//             togglePasswordVisibility={togglePasswordVisibility}
-//           />
-//         </div>
-//       </div>
-
-//       <div className="adress-container">
-//         <span>Provide Your Name and Date of Birth</span>
-//         <div className="fields-container">
-//           <NameAndDateFields
-//             firstName={state.firstName}
-//             firstNameError={state.firstNameError}
-//             onFirstNameChange={handleFirstNameChange}
-//             lastName={state.lastName}
-//             lastNameError={state.lastNameError}
-//             onLastNameChange={handleLastNameChange}
-//             dateOfBirth={state.dateOfBirth}
-//             dateOfBirthError={state.dateOfBirthError}
-//             onDateOfBirthChange={handleDateOfBirth}
-//           />
-//         </div>
-//         <span>Shipping address</span>
-//         <div className="fields-container">
-//           <AdressFields
-//             prefix="shipping"
-//             country={state.country}
-//             countryError={state.countryError}
-//             onCountryChange={(event) =>
-//               handleCountryChange(event, 'country', 'countryError')
-//             }
-//             city={state.city}
-//             cityError={state.cityError}
-//             onCityChange={(event) =>
-//               handleCityChange(event, 'city', 'cityError')
-//             }
-//             street={state.street}
-//             streetError={state.streetError}
-//             onStreetChange={(event) =>
-//               handleStreetChange(event, 'street', 'streetError')
-//             }
-//             postCode={state.postCode}
-//             postCodeError={state.postCodeError}
-//             onPostCodeChange={(event) =>
-//               handlePostCodeChange(event, 'postCode', 'postCodeError')
-//             }
-//           />
-//         </div>
-
-//         <div className="gender-radio-group">
-//           <RadioButton
-//             id="male"
-//             name="gender"
-//             value="male"
-//             label="Мужской"
-//             checked={selectedGender === 'male'}
-//             onChange={handleGenderChange}
-//           />
-//           <RadioButton
-//             id="female"
-//             name="gender"
-//             value="female"
-//             label="Женский"
-//             checked={selectedGender === 'female'}
-//             onChange={handleGenderChange}
-//           />
-//         </div>
-
-//         <Checkbox
-//           id="default-shiping-address"
-//           checked={state.isDefaultShippingAddress}
-//           onChange={handleCheckboxChangeDefaultShippingAddress}
-//           label="set as default shipping address"
-//         />
+          <div className="terms-container">
+            <Checkbox
+              id="terms-conditions"
+              ref={termsAcceptedRef}
+              label="I accept the Terms and Conditions"
+            />
+          </div>
+        </div> */
+}
 
 //         <div className="login-buttons">
-//           <LargeButton disabled={isButtonDisabled} disabledText="Register">
-//             Register
-//           </LargeButton>
+//           <LargeButton disabled={false}>Register</LargeButton>
 //         </div>
 //       </div>
 //     </form>
